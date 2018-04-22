@@ -1,3 +1,10 @@
+/*
+ * Time: 2018.4.19
+ * Author: bishop986
+ * Instruction:
+ * 简单词法分析，用于统计符合要求的正确标识符的数量
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -5,14 +12,21 @@
 
 int main( int argc, char** argv)
 {
-	::std::cout << "[INFO] Calculation Begin" << ::std::endl;
-	unsigned int process_state = 0;
-	char process_char = ' ';
+	// 图方便直接用了容器
+	// 据说流操作比较慢，所以用了文件指针，不过我觉得小文件应该感觉不出来
 	::std::FILE *fp = NULL;
 	::std::string tmp_Identifier = "";
+	// 统计正确的标识符
 	::std::vector< ::std::string > right_identifiers;
+	// 统计错误的标识符
 	::std::vector< ::std::string > wrong_identifiers;
 	bool error_flag = false;
+	// 转移状态存储
+	unsigned int process_state = 0;
+	// 待处理字符
+	char process_char = ' ';
+
+	::std::cout << "[INFO] Calculation Begin" << ::std::endl;
 
 	if ( argc < 2)
 	{
@@ -27,6 +41,12 @@ int main( int argc, char** argv)
 		return 1;
 	}
 
+	// 目前还没有包含辅助字符如+,=等
+	// 0状态为s0，1状态为s1，2状态为终止态s2
+	// 转换函数如下:
+	// T(s0,EOF)=s2;T(s1,EOF)=s2
+	// T(s0,[a-zA-Z])=s1;T(s0,[' '|'\t'|'\n'])=s0;T(s0,除开前面的情况)=不变
+	// T(s1,[0-9a-zA-Z])=s1;T(s1,[' '|'\t'|'\n'])=s0;T(s1,除开前面的情况)=不变
 	while( process_state != 2) 
 	{
 		switch( process_state)
