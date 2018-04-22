@@ -1,0 +1,28 @@
+// abc
+// 123
+// )(@&*#
+// abc * abc
+// // abc /* */ sd
+/* abc */
+/* 23 */
+/* I*@# */
+
+#include <stdio.h> 
+
+int main()
+{
+	int a = 0; // variable a
+	int b = 0; // Variable a
+	int c = a + b; // c = a + b
+
+	/* say comment */
+	printf("hello world\n");
+
+	/* 
+	 * test mutiline comment
+	 * comment
+	 */
+
+	return 0;
+}
+
