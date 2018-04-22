@@ -56,15 +56,12 @@ int main( int argc, char** argv)
 		return 1;
 	}
 
+
+	::std::printf("\t%d: ", ++line);
 	process_char = ::std::fgetc(fp);
 	if ( EOF == process_char)
 	{
 		return 0;
-	}
-	::std::printf("\t%d: %c", ++line, process_char);
-	if ( process_char == '\n')
-	{
-		::std::printf("\t%d: ", ++line);
 	}
 
 	while( EOF != process_char)
@@ -102,24 +99,33 @@ int main( int argc, char** argv)
 					tmpTYPE = ASSIGN;
 					state = DONE;
 					tmpWORD += process_char;
+					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
 					tmpWORD += process_char;
+					continue;
 				}
 				break;
 			case INCOMMENT:
 				if ( '}' == process_char)
 				{
 					state = START;
+				} else 
+				{
+					state = INCOMMENT;
 				}
 				break;
 			case INNUM:
-				if ( process_char >= '0' && process_char < '9')
+				if ( process_char >= '0' && process_char <= '9')
 				{
 					state = INNUM;
 					tmpWORD += process_char;
+				} else if ( ' ' == process_char || '\n' == process_char)
+				{
+					state = DONE;
+					continue;
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
 						|| process_char == ')' || process_char == ';')
@@ -129,11 +135,13 @@ int main( int argc, char** argv)
 					::std::string str = "";
 					str += process_char;
 					wordtype.push_back(WORDTYPE(str, ASSIGN));
+					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
 					tmpWORD += process_char;
+					continue;
 				}
 				break;
 			case INID:
@@ -142,6 +150,17 @@ int main( int argc, char** argv)
 				{
 					state = INID;
 					tmpWORD += process_char;
+				} else if ( ' ' == process_char || '\n' == process_char)
+				{
+					state = DONE;
+					if ( tmpWORD == "if" || tmpWORD == "then" || tmpWORD == "else"
+							|| tmpWORD == "end" || tmpWORD == "repeat" || tmpWORD == "until"
+							|| tmpWORD == "until" || tmpWORD == "read" || tmpWORD == "write")
+					{
+						tmpTYPE = RESERVED;
+					}
+					continue;
+
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
 						|| process_char == ')' || process_char == ';')
@@ -158,11 +177,13 @@ int main( int argc, char** argv)
 					::std::string str = "";
 					str += process_char;
 					wordtype.push_back(WORDTYPE(str, ASSIGN));
+					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
 					tmpWORD += process_char;
+					continue;
 				}
 				break;
 			case INASSIGN:
@@ -170,6 +191,11 @@ int main( int argc, char** argv)
 				{
 					state = DONE;
 					tmpWORD += process_char;
+					continue;
+				} else if ( ' ' == process_char || '\n' == process_char)
+				{
+					state = DONE;
+					continue;
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
 						|| process_char == ')' || process_char == ';')
@@ -179,27 +205,30 @@ int main( int argc, char** argv)
 					::std::string str = "";
 					str += process_char;
 					wordtype.push_back(WORDTYPE(str, ASSIGN));
+					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
 					tmpWORD += process_char;
+					continue;
 				}
 				break;
 			case DONE:
+				//::std::printf("\n\e[1;31m[DEBUG] %s, %d\e[0m\n", tmpWORD.c_str(), tmpTYPE);
 				wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 				tmpWORD = "";
-				break;
+				state = START;
 		}
 
-		process_char = ::std::fgetc(fp);
 		if ( '\n' == process_char)
 		{
+			::std::printf("%c", process_char);
 			if( wordtype.size() != 0)
 			{
 				for ( auto x : wordtype)
 				{
-					::std::printf("\t\t%d: ", ++line);
+					::std::printf("\t\t%d: ", line);
 					if ( x.type == ERROR)
 					{
 						::std::printf("error word: %s\n", x.val.c_str());
@@ -224,6 +253,8 @@ int main( int argc, char** argv)
 		{
 			::std::printf("%c", process_char);
 		}
+
+		process_char = ::std::fgetc(fp);
 	}
 
 	::std::fclose(fp);
