@@ -5,4 +5,6 @@
 - /word 包含词法分析的内容
 	- /word/mine 包含自己写的词法分析，目前不包含辅助字符
 	- /word/2.xx 是书上的题目
+	- /word/mine/0.1 是一个简单的letter(letter|digit)*正则表达式的匹配实现
+	- /word/mine/0.2 是一个简单的TINY语言的词法分析器
 

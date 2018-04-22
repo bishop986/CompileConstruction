@@ -59,7 +59,7 @@ int main( int argc, char** argv)
 		return 1;
 	}
 
-
+	::std::printf("TINY COMPILATION: %s\n", argv[1]);
 	::std::printf("\t%d: ", ++line);
 	process_char = ::std::fgetc(fp);
 	if ( EOF == process_char)
