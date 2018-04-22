@@ -10,14 +10,17 @@
 #include <string>
 #include <vector>
 
+// 使用枚举类型约束状态量
 enum STATE{
 	START, INCOMMENT, INNUM, INID, INASSIGN, DONE
 };
 
+// 使用枚举类型约束token类型
 enum TYPE{
 	NUM, ID, ASSIGN, ERROR, RESERVED
 };
 
+// 符号表数据结构
 struct WORDTYPE{
 
 	WORDTYPE(){}
@@ -64,6 +67,12 @@ int main( int argc, char** argv)
 		return 0;
 	}
 
+	// DFA 参考自 《编译原理及实践》中文版 p54
+	// Done 状态集中处理本行所有token的保存工作，因此需要立即跳转
+	// 考虑到书写习惯，换行符，空格，运算符都可能成为标识符的终止符
+	// 使用状态转移量控制过程，没有使用转换表
+	// 考虑到转换表也许还可能会用系数矩阵压缩方法
+	// 线性匹配保留字，没有二分，没有构建杂凑表
 	while( EOF != process_char)
 	{
 		switch(state)
@@ -94,7 +103,7 @@ int main( int argc, char** argv)
 					tmpWORD += process_char;
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
-						|| process_char == ')' || process_char == ';')
+						|| process_char == ')' || process_char == ';' || process_char == '=')
 				{
 					tmpTYPE = ASSIGN;
 					state = DONE;
@@ -128,7 +137,7 @@ int main( int argc, char** argv)
 					continue;
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
-						|| process_char == ')' || process_char == ';')
+						|| process_char == ')' || process_char == ';' || process_char == '=')
 				{
 					state = DONE;
 
@@ -163,7 +172,7 @@ int main( int argc, char** argv)
 
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
-						|| process_char == ')' || process_char == ';')
+						|| process_char == ')' || process_char == ';' || process_char == '=')
 				{
 					state = DONE;
 
@@ -198,7 +207,7 @@ int main( int argc, char** argv)
 					continue;
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
-						|| process_char == ')' || process_char == ';')
+						|| process_char == ')' || process_char == ';' || process_char == '=')
 				{
 					state = DONE;
 
@@ -215,7 +224,6 @@ int main( int argc, char** argv)
 				}
 				break;
 			case DONE:
-				//::std::printf("\n\e[1;31m[DEBUG] %s, %d\e[0m\n", tmpWORD.c_str(), tmpTYPE);
 				wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 				tmpWORD = "";
 				state = START;
