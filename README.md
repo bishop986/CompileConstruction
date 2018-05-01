@@ -8,3 +8,5 @@
 	- /word/mine/0.1 是一个简单的letter(letter|digit)*正则表达式的匹配实现
 	- /word/mine/0.2 是一个简单的TINY语言的词法分析器
 
+- /brainfuck 是一个自己写的简单brainfuck解释器
+
