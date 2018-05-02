@@ -9,4 +9,5 @@
 	- /word/mine/0.2 是一个简单的TINY语言的词法分析器
 
 - /brainfuck 是一个自己写的简单brainfuck解释器
+- /grammar/arithmetic/recursion 是一个简单算式的递归下降语法分析练习
 
