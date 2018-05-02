@@ -3,6 +3,8 @@
 
 #include "scan.h"
 #include "global.h"
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 namespace dh{
 
@@ -17,12 +19,11 @@ class analysis{
 		int exp();
 		int term();
 		int factor();
-		void addop();
-		void mulop();
 		int number();
 
 		scanner tokens;
 		int result;
+		::boost::shared_ptr< token > tmp;
 };
 
 }

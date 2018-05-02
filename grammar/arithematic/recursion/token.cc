@@ -9,12 +9,12 @@ token::token( ::std::string val, TYPE type)
 	this->_type = type;
 }
 
-TYPE token::getType()
+TYPE token::getType() const
 {
 	return _type;
 }
 
-::std::string token::getVal()
+::std::string token::getVal() const
 {
 	return _val;
 }

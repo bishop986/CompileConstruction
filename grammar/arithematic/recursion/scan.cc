@@ -18,17 +18,26 @@ void scanner::destroy()
 		_fp = NULL;
 	}
 	_tokens.clear();
-	_it = _tokens.begin();
+}
+
+bool scanner::isScanned()
+{
+	return scanflag;
 }
 
 scanner& scanner::operator=(const scanner& eq)
 {
-	this->_it = eq._it;
-	this->_tokens = eq._tokens;
+	this->_tokens.assign( eq._tokens.begin(), eq._tokens.end());
 	this->_fp = eq._fp;
 	this->scanflag = eq.scanflag;
+	_it = _tokens.begin();;
 
 	return *this;
+}
+
+void scanner::setBegin()
+{
+	_it = _tokens.begin();
 }
 
 token scanner::getToken()
@@ -38,7 +47,8 @@ token scanner::getToken()
 		return token( "", TYPE::NONE);
 	}
 
-	token tmp = *_it;
+	//::std::cout << "[SS] " << _it->getVal() << std::endl;
+	token tmp(_it->getVal(),_it->getType());
 	++_it;
 	//::std::cout << "[DEBUG] " << tmp.getVal() << std::endl;
 
@@ -138,7 +148,7 @@ bool scanner::scan(::std::FILE *fp)
 					::std::string str = "";
 					str += assign;
 
-					_tokens.push_back( token( str, TYPE::MULOP));
+					_tokens.push_back( token( str, TYPE::BRACKET));
 				}
 
 				state = STATE::START;
@@ -149,6 +159,18 @@ bool scanner::scan(::std::FILE *fp)
 	_it = _tokens.begin();
 	scanflag = true;;
 	return true;
+}
+
+void scanner::debug()
+{
+	//::std::cout << _tokens.begin().base() << ::std::endl;
+	::std::cout << "[size]:" << _tokens.size() << ::std::endl;
+	for(auto i = _tokens.begin(); i != _tokens.end(); ++i)
+	{
+		::std::cout << "[token VAL] "  << i->getVal();
+		::std::cout << " [token TYPE] " << i->getType();
+		::std::cout << ::std::endl;
+	}
 }
 
 }

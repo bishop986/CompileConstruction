@@ -9,6 +9,7 @@
 #include <cstdio>
 #include "scan.h"
 #include "global.h"
+#include "analysis.h"
 
 int main( int argc, char** argv)
 {
@@ -28,7 +29,13 @@ int main( int argc, char** argv)
 	::dh::scanner tokens;
 	tokens.scan(fp);
 
-	// TODO: Analysis the token table
+	::dh::analysis an(tokens);
+
+	int ret = an.getResult();
+	::std::cout << "Result is " << ret << ::std::endl;
+	
+	// scanner DEBUG
+	/*
 	while ( 1)
 	{
 		::dh::token tmp = tokens.getToken();
@@ -40,6 +47,8 @@ int main( int argc, char** argv)
 			break;
 		}
 	}
+	*/
+	return 0;
 }
 
 

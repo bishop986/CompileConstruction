@@ -13,8 +13,8 @@ class token{
 	public:
 
 		token( ::std::string val, TYPE type);
-		TYPE getType();
-		::std::string getVal();
+		TYPE getType() const;
+		::std::string getVal() const;
 		token& operator=(const token& eq);
 	private:
 
@@ -25,6 +25,7 @@ class token{
 class scanner{
 	public:
 
+		void debug();
 		scanner();
 		bool scan( ::std::FILE *fp);
 		token getToken();
@@ -32,13 +33,14 @@ class scanner{
 		void reset() { destroy(); }
 		~scanner() { destroy(); }
 		scanner& operator=(const scanner& eq);
-
+		void setBegin();
+		bool isScanned();
 	private:
 
 		bool scanflag;
 		::std::FILE *_fp;
 		::std::vector< token > _tokens;
-		::std::vector< token >::iterator _it;
+		::std::vector< token >::const_iterator _it;
 		void destroy();
 };
 
