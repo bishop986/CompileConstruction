@@ -41,6 +41,7 @@ int main( int argc, char** argv)
 	int line = 0;
 	STATE state = START;
 	char process_char = ' ';
+	char assign = ' ';
 	::std::FILE *fp = NULL;
 	::std::vector< ::WORDTYPE > wordtype;
 	::std::string tmpWORD = "";
@@ -105,15 +106,19 @@ int main( int argc, char** argv)
 						|| process_char == '/' || process_char == '<' || process_char == '('
 						|| process_char == ')' || process_char == ';' || process_char == '=')
 				{
-					tmpTYPE = ASSIGN;
+					//tmpTYPE = ASSIGN;
 					state = DONE;
-					tmpWORD += process_char;
+					assign = process_char;
+					//tmpWORD += process_char;
+					//wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
+					assign = process_char;
 					tmpWORD += process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				}
 				break;
@@ -134,6 +139,8 @@ int main( int argc, char** argv)
 				} else if ( ' ' == process_char || '\n' == process_char)
 				{
 					state = DONE;
+					assign = process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
 						|| process_char == '/' || process_char == '<' || process_char == '('
@@ -141,15 +148,19 @@ int main( int argc, char** argv)
 				{
 					state = DONE;
 
-					::std::string str = "";
-					str += process_char;
-					wordtype.push_back(WORDTYPE(str, ASSIGN));
+					//::std::string str = "";
+					assign = process_char;
+					//str += process_char;
+					//wordtype.push_back(WORDTYPE(str, ASSIGN));
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
+					assign = process_char;
 					tmpWORD += process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				}
 				break;
@@ -162,12 +173,14 @@ int main( int argc, char** argv)
 				} else if ( ' ' == process_char || '\n' == process_char)
 				{
 					state = DONE;
+					assign = process_char;
 					if ( tmpWORD == "if" || tmpWORD == "then" || tmpWORD == "else"
 							|| tmpWORD == "end" || tmpWORD == "repeat" || tmpWORD == "until"
 							|| tmpWORD == "until" || tmpWORD == "read" || tmpWORD == "write")
 					{
 						tmpTYPE = RESERVED;
 					}
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 
 				} else if ( process_char == '+' || process_char == '-' || process_char == '*'
@@ -183,15 +196,19 @@ int main( int argc, char** argv)
 						tmpTYPE = RESERVED;
 					}
 
-					::std::string str = "";
-					str += process_char;
-					wordtype.push_back(WORDTYPE(str, ASSIGN));
+					//::std::string str = "";
+					//str += process_char;
+					assign = process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
+					//wordtype.push_back(WORDTYPE(str, ASSIGN));
 					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
+					assign = process_char;
 					tmpWORD += process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				}
 				break;
@@ -199,7 +216,10 @@ int main( int argc, char** argv)
 				if ( '=' == process_char)
 				{
 					state = DONE;
+					assign = ' ';
+					tmpTYPE = TYPE::ASSIGN;
 					tmpWORD += process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
 					continue;
 				} else if ( ' ' == process_char || '\n' == process_char)
 				{
@@ -211,20 +231,33 @@ int main( int argc, char** argv)
 				{
 					state = DONE;
 
-					::std::string str = "";
-					str += process_char;
-					wordtype.push_back(WORDTYPE(str, ASSIGN));
+					assign = process_char;
+					wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
+					//::std::string str = "";
+					//str += process_char;
+					//wordtype.push_back(WORDTYPE(str, ASSIGN));
 					continue;
 				} else 
 				{
 					tmpTYPE = ERROR;
 					state = DONE;
+					assign = process_char;
 					tmpWORD += process_char;
 					continue;
 				}
 				break;
 			case DONE:
-				wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
+				//if ( tmpWORD.length() != 0)
+				//{
+				//	wordtype.push_back(WORDTYPE( tmpWORD, tmpTYPE));
+				//}
+				::std::string tmpstr = "";
+				if ( assign != '\n' && assign != '\r'
+						&& assign != '\t' && assign != ' ')
+				{
+					tmpstr += assign;
+					wordtype.push_back(WORDTYPE( tmpstr, TYPE::ASSIGN));
+				}
 				tmpWORD = "";
 				state = START;
 		}
@@ -242,7 +275,7 @@ int main( int argc, char** argv)
 						::std::printf("error word: %s\n", x.val.c_str());
 					} else if ( x.type == ASSIGN)
 					{
-						::std::printf("assign signal: %s\n", x.val.c_str());
+						::std::printf("%s\n", x.val.c_str());
 					} else if ( x.type == NUM)
 					{
 						::std::printf("NUM, val= %s\n", x.val.c_str());
