@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/leo/Compile/grammar/lessonprojcet/include/global.h
+
+/home/leo/Compile/grammar/lessonprojcet/include/scan.h
+iostream
+-
+cstdio
+-
+string
+-
+vector
+-
+global.h
+/home/leo/Compile/grammar/lessonprojcet/include/global.h
+
+/home/leo/Compile/grammar/lessonprojcet/main.cc
+iostream
+-
+include/scan.h
+/home/leo/Compile/grammar/lessonprojcet/include/scan.h
+
+/home/leo/Compile/grammar/lessonprojcet/scan.cc
+include/scan.h
+/home/leo/Compile/grammar/lessonprojcet/include/scan.h
+include/global.h
+/home/leo/Compile/grammar/lessonprojcet/include/global.h
+
+/home/leo/Compile/grammar/lessonprojcet/token.cc
+include/global.h
+/home/leo/Compile/grammar/lessonprojcet/include/global.h
+include/scan.h
+/home/leo/Compile/grammar/lessonprojcet/include/scan.h
+

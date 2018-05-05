@@ -1,0 +1,3 @@
+/home/leo/Compile/grammar/lessonprojcet/build/CMakeFiles/edit_cache.dir
+/home/leo/Compile/grammar/lessonprojcet/build/CMakeFiles/rebuild_cache.dir
+/home/leo/Compile/grammar/lessonprojcet/build/CMakeFiles/LessonProject.dir
