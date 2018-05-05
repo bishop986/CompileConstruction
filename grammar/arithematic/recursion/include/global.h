@@ -11,7 +11,7 @@ enum STATE {
 
 /*********Token Type**********/
 enum TYPE {
-	ADDOP = 10, MULOP, NUMBER, NONE, BRACKET
+	ADDOP = 10, MULOP, NUMBER, NONE, BRACKET, DELIM
 };
 
 }

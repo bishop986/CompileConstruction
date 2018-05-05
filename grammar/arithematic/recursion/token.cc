@@ -1,5 +1,5 @@
-#include "global.h"
-#include "scan.h"
+#include "include/global.h"
+#include "include/scan.h"
 
 namespace dh {
 

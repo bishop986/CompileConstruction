@@ -1,6 +1,6 @@
-#include "scan.h"
-#include "global.h"
-#include "analysis.h"
+#include "include/scan.h"
+#include "include/global.h"
+#include "include/analysis.h"
 #include <exception>
 #include <sstream>
 
@@ -30,7 +30,9 @@ analysis::analysis(scanner tokens)
 
 int analysis::getResult()
 {
-	//tokens.debug();
+#ifdef _DEBUG_
+	tokens.debug();
+#endif
 	*tmp = tokens.getToken();
 	result = exp();
 	return result;
@@ -38,8 +40,10 @@ int analysis::getResult()
 
 void analysis::match( ::std::string c)
 {
+#ifdef _DEBUG_
 	::std::cout << "[DEBUG] in match"  << ::std::endl;
 	::std::cout << "[get] "<< tmp->getVal() <<" [match] " << c << ::std::endl;
+#endif
 	if ( tmp->getVal() == c)
 	{
 		*tmp = tokens.getToken();
@@ -54,7 +58,9 @@ void analysis::match( ::std::string c)
 
 int analysis::number()
 {
+#ifdef _DEBUG_
 	::std::cout << "[DEBUG] in number"  << ::std::endl;
+#endif
 	if ( tmp->getType() == TYPE::NUMBER)
 	{
 		::std::stringstream sstream;
@@ -75,8 +81,9 @@ int analysis::number()
 
 int analysis::exp()
 {
-
+#ifdef _DEBUG_
 	::std::cout << "[DEBUG] in exp"  << ::std::endl;
+#endif
 	int ret = term();
 
 	while (1)
@@ -90,7 +97,8 @@ int analysis::exp()
 		{
 			match("+");
 			ret += term();
-		} else {
+		} else 
+		{
 			match("-");
 			ret -= term();
 		}
@@ -101,7 +109,9 @@ int analysis::exp()
 
 int analysis::term()
 {
+#ifdef _DEBUG_
 	::std::cout << "[DEBUG] in term"  << ::std::endl;
+#endif
 	int ret = factor();
 
 	while(1)
@@ -120,7 +130,9 @@ int analysis::term()
 
 int analysis::factor()
 {
+#ifdef _DEBUG_
 	::std::cout << "[DEBUG] in factor"  << ::std::endl;
+#endif
 
 	//std::cout << "[DEBUG] " << tmp->getVal() << ::std::endl;
 

@@ -1,5 +1,5 @@
-#include "scan.h"
-#include "global.h"
+#include "include/scan.h"
+#include "include/global.h"
 
 namespace dh{
 
@@ -109,7 +109,8 @@ bool scanner::scan(::std::FILE *fp)
 					continue;
 				} else 
 				{
-					return false;
+					::std::cerr << "[ERROR] Unknown Token: " << cur << ::std::endl;
+					::std::exit(1);
 				}
 				break;
 			case STATE::INNUMBER:
@@ -142,6 +143,11 @@ bool scanner::scan(::std::FILE *fp)
 						|| assign == '\n' || assign == '\t')
 				{
 					state = STATE::START;
+
+					//::std::string str = "";
+					//str += assign;
+					
+					//_tokens.push_back( token( str, TYPE::DELIM));
 					break;
 				} else if ( assign == '(' || assign == ')')
 				{
@@ -149,6 +155,10 @@ bool scanner::scan(::std::FILE *fp)
 					str += assign;
 
 					_tokens.push_back( token( str, TYPE::BRACKET));
+				} else 
+				{
+					::std::cerr << "[ERROR] Unknown Token: " << assign << ::std::endl;
+					::std::exit(1);
 				}
 
 				state = STATE::START;

@@ -7,9 +7,9 @@
 
 #include <iostream>
 #include <cstdio>
-#include "scan.h"
-#include "global.h"
-#include "analysis.h"
+#include "include/scan.h"
+#include "include/global.h"
+#include "include/analysis.h"
 
 int main( int argc, char** argv)
 {
