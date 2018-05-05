@@ -96,22 +96,27 @@ int analysis::lexp()
 	if ( tmp->getVal() == "*")
 	{
 		match("*");
+		match(" ");
 		ret = lexpseq();
 		match(" ");
 		ret *= lexpseq();
 	} else if ( tmp->getVal() == "+")
 	{
 		match("+");
+		match(" ");
 		ret = lexpseq();
 		match(" ");
 		ret += lexpseq();
 	} else if ( tmp->getVal() == "-")
 	{
 		match("-");
+		match(" ");
 		ret = lexpseq();
 		match(" ");
 		ret -= lexpseq();
 	}
+
+	match(")");
 	return ret;
 }
 

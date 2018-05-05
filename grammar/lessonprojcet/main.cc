@@ -1,6 +1,6 @@
 #include <iostream>
 #include "include/scan.h"
-
+#include "include/analysis.h"
 
 int main( int argc, char** argv)
 {
@@ -17,6 +17,10 @@ int main( int argc, char** argv)
 
 	scan.scan(fp);
 	scan.debug();
+
+	::dh::analysis an(scan);
+
+	::std::cout << "Result: " << an.getResult() << ::std::endl;
 
 	return 0;
 }
