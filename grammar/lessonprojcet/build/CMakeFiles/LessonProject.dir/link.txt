@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/LessonProject.dir/main.cc.o CMakeFiles/LessonProject.dir/scan.cc.o CMakeFiles/LessonProject.dir/token.cc.o  -o LessonProject 
