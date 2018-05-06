@@ -14,5 +14,11 @@ enum TYPE {
 	ADDOP = 10, MULOP, NUMBER, NONE, BRACKET, DELIM
 };
 
+
+/*********Node kind**********/
+enum KIND {
+	OpK = 20, NumK
+};
+
 }
 #endif

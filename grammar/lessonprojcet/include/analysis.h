@@ -3,6 +3,7 @@
 
 #include "scan.h"
 #include "global.h"
+#include "syntax_tree.h"
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
@@ -13,16 +14,20 @@ class analysis{
 
 		analysis( scanner tokens);
 		int getResult();
+		::std::unique_ptr< ::dh::TreeNode > getRoot();
 	private:
 
+		int getResult( const ::std::unique_ptr<TreeNode>& root);
 		void match( ::std::string c);
 		int number();
-		int lexp();
-		int lexpseq();
+		::std::unique_ptr<TreeNode> lexp();
+		::std::unique_ptr<TreeNode> lexpseq();
 
 		scanner tokens;
 		int result;
 		::boost::shared_ptr< token > tmp;
+		::std::unique_ptr<TreeNode> _root;
+
 };
 
 }

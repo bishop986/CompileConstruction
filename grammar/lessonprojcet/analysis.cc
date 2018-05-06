@@ -1,6 +1,7 @@
 #include "include/scan.h"
 #include "include/global.h"
 #include "include/analysis.h"
+#include "include/syntax_tree.h"
 #include <exception>
 #include <sstream>
 
@@ -28,14 +29,45 @@ analysis::analysis(scanner tokens)
 	}
 }
 
+int analysis::getResult( const ::std::unique_ptr<TreeNode>& root)
+{
+	int ret = 0;
+	if ( root->getKind() == KIND::NumK)
+	{
+		ret = ::boost::get<int>(root->_data);
+	} else if ( root->getKind() == KIND::OpK)
+	{
+		char c = ::boost::get< ::std::string >(root->_data).c_str()[0];
+		switch(c)
+		{
+			case '+':
+				ret = getResult(root->_left_child) + getResult(root->_right_child);
+				break;
+			case '-':
+				ret = getResult(root->_left_child) - getResult(root->_right_child);
+				break;
+			case '*':
+				ret = getResult(root->_left_child) * getResult(root->_right_child);
+				break;
+			default:
+				::std::cerr << "[ERROR] Unexpected Token: " << c << ::std::endl;
+		}
+	}
+	return ret;
+}
+
 int analysis::getResult()
 {
 #ifdef _DEBUG_
 	tokens.debug();
 #endif
+
 	*tmp = tokens.getToken();
-	result = lexp();
-	return result;
+	_root = lexp();
+
+	int ret = getResult( _root);
+
+	return ret;
 }
 
 void analysis::match( ::std::string c)
@@ -79,13 +111,15 @@ int analysis::number()
 	::std::exit(1);
 }
 
-int analysis::lexp()
+::std::unique_ptr<TreeNode> analysis::lexp()
 {
 #ifdef _DEBUG_
 	::std::cout << "[DEBUG] in lexp"  << ::std::endl;
 #endif
 
-	int ret = 0;
+	::std::unique_ptr<TreeNode> ret;
+	::std::unique_ptr<TreeNode> tmp_node;
+
 	match("(");
 	if ( tmp->getType() != TYPE::MULOP && tmp->getType() != TYPE::ADDOP)
 	{
@@ -96,44 +130,45 @@ int analysis::lexp()
 	if ( tmp->getVal() == "*")
 	{
 		match("*");
-		match(" ");
-		ret = lexpseq();
-		match(" ");
-		ret *= lexpseq();
+		ret = ::std::unique_ptr<TreeNode>(new TreeNode("*"));
+			
 	} else if ( tmp->getVal() == "+")
 	{
 		match("+");
-		match(" ");
-		ret = lexpseq();
-		match(" ");
-		ret += lexpseq();
+		ret = ::std::unique_ptr<TreeNode>(new TreeNode("+"));
 	} else if ( tmp->getVal() == "-")
 	{
 		match("-");
-		match(" ");
-		ret = lexpseq();
-		match(" ");
-		ret -= lexpseq();
-	}
+		ret = ::std::unique_ptr<TreeNode>(new TreeNode("-"));
+	} 
+
+	match(" ");
+	tmp_node = lexpseq();
+	ret->setLeft( tmp_node);
+	match(" ");
+	tmp_node = lexpseq();
+	ret->setRight( tmp_node);
+
 
 	match(")");
+
 	return ret;
 }
 
-int analysis::lexpseq()
+::std::unique_ptr<TreeNode> analysis::lexpseq()
 {
 #ifdef _DEBUG_
 	::std::cout << "[DEBUG] in lexpseq"  << ::std::endl;
 #endif
 
-	int ret = 0;
+	::std::unique_ptr<TreeNode> ret;
 	if ( tmp->getVal() == "(")
 	{
 		ret = lexp();
 		return ret;
 	}
 
-	ret = number();
+	ret = ::std::unique_ptr<TreeNode>(new TreeNode(number()));
 	return ret;
 }
 	
