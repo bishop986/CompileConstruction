@@ -9,22 +9,22 @@ echo "**********************Test Begin**********************"
 function check()
 {
 	local str=$1
-	echo "$str" > ../TestTmpFile
-	./LessonProject ../TestTmpFile 2>> "../report.log" 1>> "../report.log"
+	echo "$str" > ../input.txt
+	./LessonProject ../input.txt 2>> "../output.txt" 1>> "../output.txt"
 
 	if [ $? -eq ${2} ]; then
 		local report
 		report="[Pass] success with: "
 		report=${report}${str}
 		echo "\e[32m"${report}"\e[0m"
-		echo ${report} >> "../report.log"
+		echo ${report} >> "../output.txt"
 		let pass=pass+1
 	else
 		local report 
 		report="[Error] fail with: "
 		report=${report}${str}
 		echo "\e[31m"${report}"\e[0m"
-		echo ${report} >> "../report.log"
+		echo ${report} >> "../output.txt"
 		let error=error+1
 	fi
 
@@ -33,7 +33,7 @@ function check()
 
 function finish()
 {
-	echo "[HINT] Finish Check, Reseult saved to report.log"
+	echo "[HINT] Finish Check, Reseult saved to output.txt"
 	echo "\e[33m**********************Summary************************\e[0m"
 	echo "[SUM] Total:"${total}" test case"
 	echo "[SUM] Pass:"${pass}" test case"
@@ -48,23 +48,30 @@ function finish()
 	echo "**********************Test End***********************"
 	cd ..
 	rm build -rf
-	rm TestTmpFile
+	rm input.txt
 }
 
 function init()
 {
+	if [ -f "./input.txt" ]; then
+		rm ./input.txt
+	fi
+
+	if [ -f "./output.txt" ]; then
+		rm ./output.txt
+	fi
 
 	if [ ! -d "./build" ]; then
 		mkdir ./build
 		cd ./build
-		cmake -DCMAKE_BUILD_TYPE=Debug ..
+		cmake ..
 		make 
 		cd ..
 	fi
 
 	if [ ! -x "./build/LessonProject" ]; then
 		cd ./build
-		cmake -DCMAKE_BUILD_TYPE=Debug ..
+		cmake ..
 		make
 		cd ..
 	fi

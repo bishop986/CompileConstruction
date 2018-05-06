@@ -35,9 +35,11 @@ int analysis::getResult( const ::std::unique_ptr<TreeNode>& root)
 	if ( root->getKind() == KIND::NumK)
 	{
 		ret = ::boost::get<int>(root->_data);
+		::std::cout << ret << " ";
 	} else if ( root->getKind() == KIND::OpK)
 	{
 		char c = ::boost::get< ::std::string >(root->_data).c_str()[0];
+		::std::cout << c << " ";
 		switch(c)
 		{
 			case '+':
@@ -64,8 +66,10 @@ int analysis::getResult()
 
 	*tmp = tokens.getToken();
 	_root = lexp();
-
+	
+	::std::cout << "[MSG] Use Mid-order to print this tree" << ::std::endl;
 	int ret = getResult( _root);
+	::std::cout << ::std::endl;
 
 	return ret;
 }

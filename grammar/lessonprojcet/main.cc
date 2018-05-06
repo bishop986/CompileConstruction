@@ -11,12 +11,12 @@ int main( int argc, char** argv)
 	}
 
 	::std::FILE *fp = NULL;
+
 	fp = ::std::fopen( argv[1], "r");
 
 	::dh::scanner scan;
 
 	scan.scan(fp);
-	scan.debug();
 
 	::dh::analysis an(scan);
 
