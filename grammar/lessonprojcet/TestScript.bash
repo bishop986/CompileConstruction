@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 let pass=0
 let error=0
@@ -16,14 +16,14 @@ function check()
 		local report
 		report="[Pass] success with: "
 		report=${report}${str}
-		echo "\e[32m"${report}"\e[0m"
+		echo -e "\e[32m"${report}"\e[0m"
 		echo ${report} >> "../output.txt"
 		let pass=pass+1
 	else
 		local report 
 		report="[Error] fail with: "
 		report=${report}${str}
-		echo "\e[31m"${report}"\e[0m"
+		echo -e "\e[31m"${report}"\e[0m"
 		echo ${report} >> "../output.txt"
 		let error=error+1
 	fi
@@ -34,15 +34,15 @@ function check()
 function finish()
 {
 	echo "[HINT] Finish Check, Reseult saved to output.txt"
-	echo "\e[33m**********************Summary************************\e[0m"
+	echo -e "\e[33m**********************Summary************************\e[0m"
 	echo "[SUM] Total:"${total}" test case"
 	echo "[SUM] Pass:"${pass}" test case"
 	echo "[SUM] Error:"${error}" test case"
 
 	if [ ${error} -eq 0 ]; then
-		echo "\e[32m[Success] All Clear\e[0m"
+		echo -e "\e[32m[Success] All Clear\e[0m"
 	else
-		echo "\e[31m[Fail] Problem Happened\e[0m"
+		echo -e "\e[31m[Fail] Problem Happened\e[0m"
 	fi
 
 	echo "**********************Test End***********************"
