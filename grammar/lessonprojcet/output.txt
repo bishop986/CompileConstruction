@@ -1,0 +1,62 @@
+[MSG] Use Mid-order to print this tree
++ 1 1 
+Result: 2
+[Pass] success with: (+ 1 1)
+[MSG] Use Mid-order to print this tree
+* 1 1 
+Result: 1
+[Pass] success with: (* 1 1)
+[MSG] Use Mid-order to print this tree
+- 1 1 
+Result: 0
+[Pass] success with: (- 1 1)
+[ERROR] Syntax Error near  
+[Pass] success with: ( 1 1)
+[ERROR] Syntax Error near +
+[Pass] success with: + 1 1)
+[ERROR] Syntax Error near 1
+[Pass] success with: (+ 1 1
+[MSG] Use Mid-order to print this tree
++ 1 + 1 1 
+Result: 3
+[Pass] success with: (+ 1 (+ 1 1))
+[MSG] Use Mid-order to print this tree
++ 1 * 1 1 
+Result: 2
+[Pass] success with: (+ 1 (* 1 1))
+[MSG] Use Mid-order to print this tree
++ 1 - 1 1 
+Result: 1
+[Pass] success with: (+ 1 (- 1 1))
+[ERROR] Syntax Error near  
+[Pass] success with: (+ 1 ( 1 1))
+[ERROR] Syntax Error near  
+[Pass] success with: ( 1 (+ 1 1))
+[ERROR] Syntax Error near +
+[Pass] success with: (+ 1 + 1 1))
+[ERROR] Syntax Error near )
+[Pass] success with: (+ 1 (+ 1 1)
+[MSG] Use Mid-order to print this tree
++ + 1 1 1 
+Result: 3
+[Pass] success with: (+ (+ 1 1) 1)
+[MSG] Use Mid-order to print this tree
++ * 1 1 1 
+Result: 2
+[Pass] success with: (+ (* 1 1) 1)
+[MSG] Use Mid-order to print this tree
++ - 1 1 1 
+Result: 1
+[Pass] success with: (+ (- 1 1) 1)
+[MSG] Use Mid-order to print this tree
++ + 1 1 + 1 1 
+Result: 4
+[Pass] success with: (+ (+ 1 1) (+ 1 1))
+[MSG] Use Mid-order to print this tree
++ + 1 1 * 1 1 
+Result: 3
+[Pass] success with: (+ (+ 1 1) (* 1 1))
+[MSG] Use Mid-order to print this tree
++ + 1 1 - 1 1 
+Result: 2
+[Pass] success with: (+ (+ 1 1) (- 1 1))
