@@ -16,8 +16,20 @@ enum TYPE {
 
 
 /*********Node kind**********/
-enum KIND {
-	OpK = 20, NumK
+enum NodeKind {
+	StmK, ExpK
+};
+
+enum StmtKind {
+	IfK, RepeatK, AssignK, ReadK, WriteK
+};
+
+enum ExpKind {
+	OpK, ConstK, IdK
+};
+
+enum ExpType {
+	Void, Integer, Boolean
 };
 
 }

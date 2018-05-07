@@ -33,5 +33,4 @@ void TreeNode::setRight( ::std::unique_ptr<TreeNode>& ptr)
 }
 
 
-
 }

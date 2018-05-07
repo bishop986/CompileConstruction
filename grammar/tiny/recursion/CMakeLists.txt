@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 2.8 )
 
 project( tiny )
 
-add_definitions(-std=c++11)
+add_definitions(-std=c++14)
 
 set( CMAKE_CXX_FLAGS_DEBUG "-D _DEBUG_" )
 
