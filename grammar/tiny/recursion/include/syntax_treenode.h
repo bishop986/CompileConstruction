@@ -7,16 +7,21 @@
 
 namespace dh{
 
+class TreeNode;
+
+
+typedef ::std::shared_ptr<TreeNode> NodePtr;
+
 class TreeNode{
 	public:
 		TreeNode(const ::std::string& c);
 		TreeNode(const int& val);
 
 		// from left to right append child tree
-		void appendChild( ::std::unique_ptr<TreeNode>& ptr);
+		void appendChild( NodePtr& ptr);
 
 		// set sibling
-		void setSibling( ::std::unique_ptr<TreeNode>& ptr);
+		void setSibling( const ::std::shared_ptr<TreeNode>& ptr);
 
 		// set some extra info
 		void setNodeKind( const int& _nk);
@@ -24,16 +29,19 @@ class TreeNode{
 		void setType( const int& _t);
 
 		// get some extra info
-		auto getNodeKind() const;
-		auto getKind() const;
-		auto getType() const;
+		int getNodeKind() const;
+		int getKind() const;
+		int getType() const;
 
 		// Type need user check
-		auto getData() const;
+		::boost::variant< ::std::string, int> getData() const;
+
+		// get next sibling
+		NodePtr getSibling() const;
 
 	private:
-		::std::vector< ::std::unique_ptr<TreeNode> > _children;
-		::std::unique_ptr<TreeNode> _sibling;
+		::std::vector< ::std::shared_ptr<TreeNode> > _children;
+		NodePtr _sibling;
 
 		int _nodekind;
 		int _kind;
@@ -41,8 +49,8 @@ class TreeNode{
 		::boost::variant< ::std::string, int> _data;
 		int _type;
 
-	friend class analysis;
 };
+
 
 }
 

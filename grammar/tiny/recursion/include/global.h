@@ -4,6 +4,7 @@
 
 namespace dh {
 
+
 /*********State********/
 enum STATE {
 	START = 0, INCOMMENT, INNUMBER, INID, INASSIGN, DONE

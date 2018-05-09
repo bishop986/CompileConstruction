@@ -31,14 +31,14 @@ T14( INCOMMENT, ^=)=DONE
 
 ### Tiny EBNF
 program --> stmt-sequence
-stmt --sequence-> statement{;statement}
+stmt-sequence-> statement{;statement}
 statement --> if-stmt|repeat-stmt|assgin-stmt|read-stmt|write-stmt
 if-stmt --> **if** exp **then** stmt-sequence [ **else** stmt-sequence ] **end**
-repeat-stmt --> **repeat** stmt-sequence until exp
+repeat-stmt --> **repeat** stmt-sequence **until** exp
 assgin-stmt --> **identifier** := exp
 read-stmt --> **read** **identifier**
 write-stmt --> **write** exp
-exp --> simple-exp comparison-op simple-exp | simple-exp
+exp --> simple-exp [comparison-op simple-exp]
 comparison-op --> < | =
 simple-exp --> term { addop term}
 addop --> + | -

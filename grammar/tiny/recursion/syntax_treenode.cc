@@ -14,22 +14,22 @@ TreeNode::TreeNode( const int& val)
 	this->_data = val;
 }
 
-auto TreeNode::getNodeKind() const
+int TreeNode::getNodeKind() const
 {
 	return this->_nodekind;
 }
 
-auto TreeNode::getKind() const
+int TreeNode::getKind() const
 {
 	return this->_kind;
 }
 
-auto TreeNode::getType() const
+int TreeNode::getType() const
 {
 	return this->_type;
 }
 
-auto TreeNode::getData() const
+::boost::variant< ::std::string, int> TreeNode::getData() const
 {
 	return this->_data;
 }
@@ -49,16 +49,21 @@ void TreeNode::setType( const int& _t)
 	this->_type = _t;
 }
 
-void TreeNode::setSibling( ::std::unique_ptr<TreeNode>& ptr)
+void TreeNode::setSibling( const ::std::shared_ptr<TreeNode>& ptr)
 {
-	this->_sibling = ::std::move(ptr);
+	this->_sibling = ptr;
 }
 
-void TreeNode::appendChild( ::std::unique_ptr<TreeNode>& ptr)
+NodePtr TreeNode::getSibling() const
+{
+	return this->_sibling;
+}
+
+void TreeNode::appendChild( NodePtr& ptr)
 {
 	if ( _children.size() < 3)
 	{
-		this->_children.push_back( ::std::move(ptr));
+		this->_children.push_back( ptr);
 	} else 
 	{
 		::std::cerr << "[ERROR] Append Child Error\n";
