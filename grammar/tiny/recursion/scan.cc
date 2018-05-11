@@ -7,6 +7,8 @@ scanner::scanner()
 {
 	_fp = NULL;
 	scanflag = false;
+	rightflag = true;
+	line = 1;
 	_tokens.clear();
 }
 
@@ -23,6 +25,11 @@ void scanner::destroy()
 bool scanner::isScanned()
 {
 	return scanflag;
+}
+
+bool scanner::isRight()
+{
+	return rightflag;
 }
 
 scanner& scanner::operator=(const scanner& eq)
@@ -89,6 +96,10 @@ bool scanner::scan(::std::FILE *fp)
 
 	while( cur != EOF)
 	{
+		if ( cur == '\n')
+		{
+			++line;
+		}
 		switch(state)
 		{
 			case STATE::START:
@@ -153,8 +164,11 @@ bool scanner::scan(::std::FILE *fp)
 					tmp.clear();
 				} else 
 				{
-					::std::cerr << "[ERROR] Unexpected Token: \":" << cur << "\"\n";
-					::std::exit(1);
+					state = STATE::START;
+					::std::cerr << "[ERROR] Unexpected Token: \":" << cur << "\""
+						<< " in line " << line 
+						<< ::std::endl;
+					rightflag = false;
 				}
 				break;
 			case STATE::INID:
@@ -198,8 +212,11 @@ bool scanner::scan(::std::FILE *fp)
 					_tokens.push_back( dh::token( str, TYPE::ASSIGN));
 				} else 
 				{
-					::std::cerr << "[ERROR] Unexpected Token: \"" << assign << "\"\n";
-					::std::exit(-1);
+					state = STATE::START;
+					::std::cerr << "[ERROR] Unexpected Token: \"" << assign << "\""
+						<< " in line " << line
+						<< ::std::endl;
+					rightflag = false;
 				}
 				break;
 		}
@@ -212,6 +229,10 @@ bool scanner::scan(::std::FILE *fp)
 
 void scanner::debug()
 {
+	if ( !rightflag)
+	{
+		return ;
+	}
 	//::std::cout << _tokens.begin().base() << ::std::endl;
 	::std::cout << "[size]:" << _tokens.size() << ::std::endl;
 	for(auto i = _tokens.begin(); i != _tokens.end(); ++i)

@@ -220,20 +220,20 @@
 
 
 [HINT] Scan file: test/test2.txt
-[ERROR] Unexpected Token: # in line 1
-[ERROR] Unexpected Token: _ in line 3
-[ERROR] Unexpected Token: 1f in line 5
-[ERROR] Unexpected Token: _ in line 12
-[ERROR] Unexpected Token: . in line 16
-[ERROR] Unexpected Token: 01; in line 16
+[ERROR] Unexpected Token: "#" in line 1
+[ERROR] Unexpected Token: "_" in line 3
+[ERROR] Unexpected Token: "1f" in line 5
+[ERROR] Unexpected Token: "_" in line 12
+[ERROR] Unexpected Token: "." in line 16
+[ERROR] Unexpected Token: "01;" in line 16
 
 
 [HINT] Scan file: test/test3.txt
-[ERROR] Unexpected Token: # in line 1
-[ERROR] Unexpected Token: _ in line 3
-[ERROR] Unexpected Token: 1f in line 5
-[ERROR] Unexpected Token: +> in line 23
-[ERROR] Unexpected Token: . in line 34
-[ERROR] Unexpected Token: 01; in line 34
+[ERROR] Unexpected Token: "#" in line 1
+[ERROR] Unexpected Token: "_" in line 3
+[ERROR] Unexpected Token: "1f" in line 5
+[ERROR] Unexpected Token: "+>" in line 23
+[ERROR] Unexpected Token: "." in line 34
+[ERROR] Unexpected Token: "01;" in line 34
 
 

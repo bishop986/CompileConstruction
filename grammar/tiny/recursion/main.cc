@@ -23,6 +23,10 @@ int main( int argc, char** argv)
 	tokens.scan( fp);
 
 	tokens.debug();
+	if ( !tokens.isRight())
+	{
+		return 1;
+	}
 	
 	dh::analysis an( tokens);
 	an.printTree();

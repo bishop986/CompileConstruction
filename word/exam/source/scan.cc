@@ -177,8 +177,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: "
-						<< tmp << " in line " << line
+					::std::cerr << "[ERROR] Unexpected Token: \""
+						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
 					rightflag = false;
@@ -214,8 +214,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: "
-						<< tmp << " in line " << line
+					::std::cerr << "[ERROR] Unexpected Token: \""
+						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
 					rightflag = false;
@@ -234,8 +234,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: "
-						<< tmp << " in line " << line
+					::std::cerr << "[ERROR] Unexpected Token: \""
+						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
 					rightflag = false;
@@ -251,8 +251,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: "
-						<< tmp << " in line " << line
+					::std::cerr << "[ERROR] Unexpected Token: \""
+						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
 					rightflag = false;
@@ -275,8 +275,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: "
-						<< tmp << " in line " << line
+					::std::cerr << "[ERROR] Unexpected Token: \""
+						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
 					rightflag = false;
@@ -332,8 +332,8 @@ bool scanner::scan(::std::FILE *fp)
 				{
 					state = STATE::START;
 
-					::std::cerr << "[ERROR] Unexpected Token: "
-						<< assign << " in line " << line
+					::std::cerr << "[ERROR] Unexpected Token: \""
+						<< assign << "\" in line " << line
 						<< ::std::endl;
 					rightflag = false;
 				}
