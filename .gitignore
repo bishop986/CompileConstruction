@@ -5,4 +5,6 @@
 *.docx
 *.o
 *.swp
+*.rar
+/word/exam/material/*
 /material/*

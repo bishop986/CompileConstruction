@@ -480,6 +480,9 @@ void analysis::printTree() const
 void analysis::printTree( const NodePtr& ptr) const
 {
 	if ( ptr->getNodeKind() == NodeKind::StmK)
+	{
+
+	}
 }
 
 }
