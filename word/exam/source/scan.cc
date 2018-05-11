@@ -256,6 +256,7 @@ bool scanner::scan(::std::FILE *fp)
 					tmp += cur;
 
 					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					tmp.clear();
 				} else if ( cur >= '0' && cur <= '9')
 				{
 					state = STATE::INFIDECI;
