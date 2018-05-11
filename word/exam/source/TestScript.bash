@@ -8,22 +8,22 @@ echo "**********************Test Begin**********************"
 
 function check()
 {
-	echo $1 2>> "../output.txt" 1>> "output.txt"
-	./thread "../$1" 2>> "../output.txt" 1>> "../output.txt"
+	echo $1 2>> "../tokenOut.txt" 1>> "tokenOut.txt"
+	./thread "../$1" 2>> "../tokenOut.txt" 1>> "../tokenOut.txt"
 
 	if [ $? -eq ${2} ]; then
 		local report
 		report="[Pass] success with: "
 		report=${report}${1}
 		echo -e "\e[32m"${report}"\e[0m"
-		echo ${report} >> "../output.txt"
+		echo ${report} >> "../tokenOut.txt"
 		let pass=pass+1
 	else
 		local report 
 		report="[Error] fail with: "
 		report=${report}${1}
 		echo -e "\e[31m"${report}"\e[0m"
-		echo ${report} >> "../output.txt"
+		echo ${report} >> "../tokenOut.txt"
 		let error=error+1
 	fi
 

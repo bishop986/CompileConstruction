@@ -88,141 +88,44 @@ bool scanner::scan(::std::FILE *fp)
 
 	while( cur != EOF)
 	{
+		if ( cur == '\n')
+		{
+			++line;
+		}
+
 		switch(state)
 		{
 			case STATE::START:
-
-				if ( cur == '\n')
-				{
-					++line;
-				}
-
-				if ( cur == ' ' || cur == '\t' || cur == '\n'
-						|| cur == '\r')
+				if ( cur == '\t' || cur == ' '
+						|| cur == '\n' || cur == '\r')
 				{
 					state = STATE::START;
-				} else if ( (cur >= 'a' && cur <= 'z' ) 
-						|| (cur >= 'A' && cur <= 'Z'))
+				} else if ( cur == '+')
+				{
+					state = STATE::INPLUS;
+					tmp += cur;
+				} else if ( cur == '-')
+				{
+					state = STATE::INMINUS;
+					tmp += cur;
+				} else if ( cur >= '0' && cur <= '9')
+				{
+					state = STATE::INFIDECI;
+					tmp += cur;
+				} else if ( ( cur >= 'a' && cur <= 'z')
+						|| ( cur >= 'A' && cur <= 'Z'))
 				{
 					state = STATE::INID;
 					tmp += cur;
-				} else if ( cur == '+')
+				} else if ( cur == ':') 
 				{
+					state = STATE::INSP;
 					tmp += cur;
-					cur = fgetc(fp);
-					if ( cur == '=')
-					{
-						tmp += cur;
-						cur = fgetc(fp);
-						if ( cur == '>') 
-						{
-							tmp += cur;
-							state =  STATE::START;
-
-							_tokens.push_back( token( token( tmp, TYPE::ASSIGN)));
-							tmp.clear();
-
-							break;
-						} else 
-						{
-							tmp += cur;
-
-							::std::cerr << "[ERROR] Unexpected token: " << tmp;
-							::std::cerr << " in line " << line;
-							::std::cerr << ::std::endl;
-
-							tmp.clear();
-							state = STATE::START;
-						}
-					} else if ( cur <= '9' && cur >= '0')
-					{
-						state = STATE::INDECIMAL;
-						tmp += cur;
-					} else 
-					{
-						tmp += cur;
-
-						::std::cerr << "[ERROR] Unexpected token: " << tmp;
-						::std::cerr << " in line " << line;
-						::std::cerr << ::std::endl;
-
-						tmp.clear();
-						state = STATE::START;
-					}
-				} else if ( cur == '-') 
+				} else if ( cur == '=') 
 				{
+					state = STATE::INEQ;
 					tmp += cur;
-					cur = fgetc(fp);
-
-					if ( cur == '>')
-					{
-						state = STATE::START;
-						tmp += cur;
-						_tokens.push_back(token( tmp, TYPE::ASSIGN));
-						tmp.clear();
-					} else if ( cur >= '0' && cur <= '9')
-					{
-						state = STATE::INDECIMAL;
-						tmp += cur;
-					} else
-					{
-						tmp += cur;
-
-						::std::cerr << "[ERROR] Unexpected token: " << tmp;
-						::std::cerr << " in line " << line;
-						::std::cerr << ::std::endl;
-
-						tmp.clear();
-						state = STATE::START;
-
-					}
-				} else if ( cur >= '0' && cur <= '9')
-				{
-					state = STATE::INDECIMAL;
-					tmp += cur;
-				} else if ( cur == '=')
-				{
-					state = STATE::START;
-					tmp += cur;
-
-					cur = fgetc(fp);
-					if ( cur == '>')
-					{
-						tmp += cur;
-						_tokens.push_back( token( tmp, TYPE::ASSIGN));
-						tmp.clear();
-						break;
-					} else 
-					{
-						::std::cerr << "[ERROR] Unexpected token: " << tmp;
-						::std::cerr << " in line " << line;
-						::std::cerr << ::std::endl;
-
-						tmp.clear();
-						state = STATE::START;
-
-					}
-				} else if ( cur == ':')
-				{
-					state = STATE::START;
-					tmp += cur;
-
-					cur = fgetc(fp);
-					if ( cur == ':')
-					{
-						tmp += cur ;
-						_tokens.push_back( token( tmp, TYPE::ASSIGN));
-						tmp.clear();
-
-						break;
-					} else 
-					{
-						_tokens.push_back( token( tmp, TYPE::ASSIGN));
-
-						tmp.clear();
-						continue;
-					}
-				}else 
+				} else 
 				{
 					state = STATE::DONE;
 					assign = cur;
@@ -238,80 +141,190 @@ bool scanner::scan(::std::FILE *fp)
 				{
 					state = STATE::INID;
 					tmp += cur;
-				} else if ( (cur >= 'a' && cur <= 'z')
-						|| (cur >= 'A' && cur <= 'Z'))
+				} else if ( ( cur >= 'a' && cur <= 'z')
+						|| ( cur >= 'A' && cur <= 'Z'))
 				{
 					state = STATE::INID;
 					tmp += cur;
-				} else {
+				} else 
+				{
 					state = STATE::DONE;
-
-					assign = cur;
 
 					_tokens.push_back( token( tmp, TYPE::IDENTIFIER));
 					tmp.clear();
+
+					assign = cur;
 					continue;
 				}
 				break;
-			case STATE::INDECIMAL:
-				if ( cur >= '0' && cur <= '9')
+			case STATE::INFIDECI:
+				if ( cur <= '9' && cur >= '0')
 				{
-					state = STATE::INDECIMAL;
+					state = STATE::INFIDECI;
 					tmp += cur;
 				} else if ( cur == '.')
 				{
-					state = STATE::INDECIMAL;
+					state = STATE::INP;
 					tmp += cur;
 				} else 
 				{
-					if ( tmp.at(tmp.size()-1) == '.')
-					{
-						::std::cerr << "[ERROR] Unexpected token: " << tmp;
-						::std::cerr << " in line " << line;
-						::std::cerr << ::std::endl;
+					state = STATE::START;
+					tmp += cur;
 
-						tmp.clear();
-						state = STATE::START;
-
-					}
-
+					::std::cerr << "[ERROR] Unexpected Token: "
+						<< tmp << " in line " << line
+						<< ::std::endl;
+					tmp.clear();
+				}
+				break;
+			case STATE::INSEDECI:
+				if ( cur <= '9' && cur >= '0')
+				{
+					state = STATE::INSEDECI;
+					tmp += cur;
+				} else 
+				{
 					state = STATE::DONE;
 					assign = cur;
 
-					_tokens.push_back(token( tmp, TYPE::DECIMAL));
+					_tokens.push_back( token( tmp, TYPE::DECIMAL));
 					tmp.clear();
 
+					continue;
+				}
+				break;
+			case STATE::INPLUS:
+				if ( cur <= '9' && cur >= '0')
+				{
+					state = STATE::INFIDECI;
+					tmp += cur;
+				} else if ( cur == '=')
+				{
+					state = STATE::INEQ;
+					tmp += cur;
+				} else 
+				{
+					state = STATE::START;
+					tmp += cur;
+
+					::std::cerr << "[ERROR] Unexpected Token: "
+						<< tmp << " in line " << line
+						<< ::std::endl;
+					tmp.clear();
+				}
+				break;
+			case STATE::INEQ:
+				if ( cur == '>')
+				{
+					state = STATE::INAR;
+					tmp += cur;
+				} else 
+				{
+					state = STATE::START;
+					tmp += cur;
+
+					::std::cerr << "[ERROR] Unexpected Token: "
+						<< tmp << " in line " << line
+						<< ::std::endl;
+					tmp.clear();
+				}
+				break;
+			case STATE::INP:
+				if ( cur >= '0' && cur <= '9')
+				{
+					state = STATE::INSEDECI;
+					tmp += cur;
+				} else
+				{
+					state = STATE::START;
+					tmp += cur;
+
+					::std::cerr << "[ERROR] Unexpected Token: "
+						<< tmp << " in line " << line
+						<< ::std::endl;
+					tmp.clear();
+				}
+				break;
+			case STATE::INAR:
+				state = STATE::DONE;
+				assign = cur;
+
+				_tokens.push_back( token( tmp, TYPE::ASSIGN));
+				tmp.clear();
+				continue;
+			case STATE::INMINUS:
+				if ( cur == '>')
+				{
+					state = STATE::INAR;
+					tmp += cur;
+				} else if ( cur >= '0' && cur <= '9')
+				{
+					state = STATE::INFIDECI;
+					tmp += cur;
+				} else 
+				{
+					state = STATE::START;
+					tmp += cur;
+
+					::std::cerr << "[ERROR] Unexpected Token: "
+						<< tmp << " in line " << line
+						<< ::std::endl;
+					tmp.clear();
+				}
+				break;
+			case STATE::INSP:
+				if ( cur == ':')
+				{
+					state = STATE::START;
+					tmp += cur;
+
+					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					tmp.clear();
+				} else 
+				{
+					state = STATE::DONE;
+					assign = cur;
+
+					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+
+					tmp.clear();
 					continue;
 				}
 				break;
 			case STATE::DONE:
-				if ( assign == '\n' || assign == ' ' 
-						|| assign == '\r' || assign == '\t')
+				if ( assign == ' ' || assign == '\t'
+						|| assign == '\n' || assign == '\r')
 				{
 					state = STATE::START;
-				} else if ( assign == ';' || assign == '{'
-						|| assign == '}')
-				{
-					state = STATE::START;
-					
-					::std::string str = "";
-					str += assign;
-					_tokens.push_back( token( str, TYPE::ASSIGN));
-
-				} else if ( assign == '=' || assign == '+' 
-						|| assign == '-' || assign == ':')
+				} else if ( assign == ':') 
 				{
 					state = STATE::START;
 					continue;
-				} else
+				} else if (assign == '{'
+						|| assign == '}' || assign == ';')
 				{
-					::std::cerr << "[ERROR] Unexpected token: " << assign;
-					::std::cerr << " in line " << line;
-					::std::cerr << ::std::endl;
-
-					tmp.clear();
 					state = STATE::START;
 
+					::std::string str = "";
+					str += assign;
+
+					_tokens.push_back( token( str, TYPE::ASSIGN));
+				} else if ( assign <= '9' && assign >= '0')
+				{
+					state = STATE::START;
+					continue;
+				} else if ( ( assign >= 'a' && assign <= 'z')
+						|| ( assign >= 'A' && assign <= 'Z'))
+				{
+					state = STATE::START;
+					continue;
+				} else 
+				{
+					state = STATE::START;
+
+					::std::cerr << "[ERROR] Unexpected Token: "
+						<< assign << " in line " << line
+						<< ::std::endl;
 				}
 				break;
 		}

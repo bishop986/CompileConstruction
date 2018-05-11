@@ -6,5 +6,6 @@
 *.o
 *.swp
 *.rar
+*.bak
 /word/exam/material/*
 /material/*

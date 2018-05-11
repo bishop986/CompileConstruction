@@ -21,7 +21,7 @@ int main( int argc, char** argv)
 	dh::scanner tokens;
 	tokens.scan( fp);
 
-	//tokens.debug();
+	tokens.debug();
 
 	return 0;
 }
