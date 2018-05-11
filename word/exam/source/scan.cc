@@ -337,7 +337,7 @@ bool scanner::scan(::std::FILE *fp)
 
 void scanner::debug()
 {
-	//::std::cout << _tokens.begin().base() << ::std::endl;
+	::std::cout << "[INFO] Token Sries: " << ::std::endl;
 	::std::cout << "[size]:" << _tokens.size() << ::std::endl;
 	for(auto i = _tokens.begin(); i != _tokens.end(); ++i)
 	{
@@ -345,6 +345,7 @@ void scanner::debug()
 		::std::cout << " [token TYPE] " << i->getType();
 		::std::cout << ::std::endl;
 	}
+	::std::cout << "[INFO] Token Sries End" << ::std::endl;
 }
 
 }
