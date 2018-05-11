@@ -124,6 +124,7 @@ bool scanner::scan(::std::FILE *fp)
 				} else if ( cur == '=') 
 				{
 					state = STATE::INEQ;
+
 					tmp += cur;
 				} else 
 				{
@@ -216,8 +217,11 @@ bool scanner::scan(::std::FILE *fp)
 			case STATE::INEQ:
 				if ( cur == '>')
 				{
-					state = STATE::INAR;
+					state = STATE::START;
 					tmp += cur;
+
+					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					tmp.clear();
 				} else 
 				{
 					state = STATE::START;
@@ -245,18 +249,13 @@ bool scanner::scan(::std::FILE *fp)
 					tmp.clear();
 				}
 				break;
-			case STATE::INAR:
-				state = STATE::DONE;
-				assign = cur;
-
-				_tokens.push_back( token( tmp, TYPE::ASSIGN));
-				tmp.clear();
-				continue;
 			case STATE::INMINUS:
 				if ( cur == '>')
 				{
-					state = STATE::INAR;
+					state = STATE::START;
 					tmp += cur;
+
+					_tokens.push_back( token( tmp, TYPE::ASSIGN));
 				} else if ( cur >= '0' && cur <= '9')
 				{
 					state = STATE::INFIDECI;

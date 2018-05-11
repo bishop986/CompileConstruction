@@ -6,7 +6,7 @@ namespace dh {
 
 /*********State********/
 enum STATE {
-	START = 0, INID, INPLUS, INEQ, INAR, INFIDECI, INP, INSEDECI, INMINUS, INSP, DONE 
+	START = 0, INID, INPLUS, INEQ,  INFIDECI, INP, INSEDECI, INMINUS, INSP, DONE 
 };
 
 /*********Token Type**********/

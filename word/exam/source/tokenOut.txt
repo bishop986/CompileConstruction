@@ -21,7 +21,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -248,7 +248,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -279,7 +279,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -320,7 +320,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -351,7 +351,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -409,7 +409,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -438,7 +438,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
 [token VAL] => [token TYPE] 3
@@ -467,7 +467,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties11 [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -498,7 +498,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
@@ -529,7 +529,7 @@
 [token VAL] path [token TYPE] 0
 [token VAL] signal [token TYPE] 0
 [token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
+[token VAL] ->result1 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [token VAL] properties [token TYPE] 0
 [token VAL] dispatch_protocol [token TYPE] 0
