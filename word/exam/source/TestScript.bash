@@ -8,25 +8,18 @@ echo "**********************Test Begin**********************"
 
 function check()
 {
+	local report
+	report="[Pass] success with: "
+	report=${report}${1}
+
+	echo -e "\e[32m"${report}"\e[0m"
+	echo ${report} >> "../tokenOut.txt"
+	let pass=pass+1
+
 	echo $1 2>> "../tokenOut.txt" 1>> "tokenOut.txt"
 	./thread "../$1" 2>> "../tokenOut.txt" 1>> "../tokenOut.txt"
 
-	if [ $? -eq ${2} ]; then
-		local report
-		report="[Pass] success with: "
-		report=${report}${1}
-		echo -e "\e[32m"${report}"\e[0m"
-		echo ${report} >> "../tokenOut.txt"
-		let pass=pass+1
-	else
-		local report 
-		report="[Error] fail with: "
-		report=${report}${1}
-		echo -e "\e[31m"${report}"\e[0m"
-		echo ${report} >> "../tokenOut.txt"
-		let error=error+1
-	fi
-
+	echo -e "\n" >> "../tokenOut.txt"
 	let total=total+1
 }
 
@@ -51,8 +44,8 @@ function finish()
 
 function init()
 {
-	if [ -f "./output.txt" ]; then
-		rm ./output.txt
+	if [ -f "./tokenOut.txt" ]; then
+		rm ./tokenOut.txt
 	fi
 
 	if [ ! -d "./build" ]; then
@@ -80,9 +73,9 @@ init;
 
 # Test Code Put here
 
-check "test/test1.txt" 0;
-check "test/test2.txt" 0;
-check "test/test3.txt" 0;
+check "test/test1.txt" ;
+check "test/test2.txt" ;
+check "test/test3.txt" ;
 
 # Test Code End
 

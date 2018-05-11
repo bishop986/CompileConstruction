@@ -1,3 +1,4 @@
+[Pass] success with: test/test1.txt
 [INFO] Token Sries: 
 [size]:215
 [token VAL] thread [token TYPE] 0
@@ -216,7 +217,9 @@
 [token VAL] Thread6 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [INFO] Token Sries End
-[Pass] success with: test/test1.txt
+
+
+[Pass] success with: test/test2.txt
 [ERROR] Unexpected Token: # in line 1
 [ERROR] Unexpected Token: _ in line 3
 [ERROR] Unexpected Token: 1f in line 5
@@ -286,7 +289,9 @@
 [token VAL] Thread2 [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [INFO] Token Sries End
-[Pass] success with: test/test2.txt
+
+
+[Pass] success with: test/test3.txt
 [ERROR] Unexpected Token: # in line 1
 [ERROR] Unexpected Token: _ in line 3
 [ERROR] Unexpected Token: 1f in line 5
@@ -536,4 +541,5 @@
 [token VAL] thread [token TYPE] 0
 [token VAL] ; [token TYPE] 3
 [INFO] Token Sries End
-[Pass] success with: test/test3.txt
+
+

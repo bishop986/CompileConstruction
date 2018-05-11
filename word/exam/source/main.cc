@@ -6,7 +6,7 @@ int main( int argc, char** argv)
 {
 	if ( argc <= 1)
 	{
-		::std::cerr << "[HINT] Usage: tiny <filename>.tny" << ::std::endl;
+		::std::cerr << "[HINT] Usage: thread <filename>.txt" << ::std::endl;
 		::std::exit(1);
 	}
 
