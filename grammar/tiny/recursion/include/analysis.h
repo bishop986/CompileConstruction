@@ -4,21 +4,25 @@
 #include "scan.h"
 #include "global.h"
 #include "syntax_treenode.h"
+#include <sstream>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
 namespace dh{
 
-class get_visitor : public ::boost::static_visitor<void>{
+class get_visitor : public ::boost::static_visitor<::std::string>{
 	public:
 		::std::string operator()(::std::string& s) const
 		{
 			return s;
 		}
 
-		int operator()(int& i) const
+		::std::string operator()(int& num) const
 		{
-			return i;
+			::std::ostringstream ss;
+
+			ss << num;
+			return ss.str();
 		}
 };
 
@@ -26,7 +30,7 @@ class analysis{
 	public:
 
 		analysis( scanner tokens);
-		void printTree() const;
+		void printTree();
 		auto getRoot();
 	private:
 

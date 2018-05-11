@@ -13,7 +13,7 @@ analysis::analysis(scanner tokens)
 	initFlag = false;
 
 #ifdef _DEBUG_
-	assert(tmp.isScanned());
+	assert(tokens.isScanned());
 #endif
 
 	if ( !tokens.isScanned())
@@ -46,7 +46,7 @@ void analysis::match( ::std::string c)
 int analysis::number()
 {
 #ifdef _DEBUG_
-	::std::cout << "[DEBUG] Syntax near " <<  tmp->getVal() << ::std::endl;
+	::std::cout << "[DEBUG] in number " << ::std::endl;
 #endif
 	try {
 		if ( tmp->getType() == TYPE::NUM)
@@ -56,6 +56,8 @@ int analysis::number()
 			
 			num_stream << tmp->getVal();
 			num_stream >> num_tmp;
+
+			*tmp = _tokens.getToken();
 
 			return num_tmp;
 		} else
@@ -73,14 +75,19 @@ int analysis::number()
 ::std::string analysis::identifier()
 {
 #ifdef _DEBUG_
-	std::cout << "[DEBUG] " << "in number" << ::std::endl;
+	std::cout << "[DEBUG] " << "in identifier" << ::std::endl;
 #endif
+
 	if ( tmp->getType() == TYPE::ID)
 	{
-		return tmp->getVal();
+		::std::string ret = tmp->getVal();
+		
+		*tmp = _tokens.getToken();
+		return ret;
 	} else 
 	{
 		::std::cerr << "[ERROR] Syntax Error near" << tmp->getVal() << ::std::endl;
+		::std::exit(1);
 	}
 }
 
@@ -102,15 +109,20 @@ NodePtr analysis::stmt_sequence()
 #endif
 
 	NodePtr ret;
+	NodePtr cur_ptr;
 
 	ret = statement();
+	cur_ptr = ret;
 	while( tmp->getVal() == ";")
 	{
 		NodePtr tmp_ptr;
 
 		match(";");
+
 		tmp_ptr = statement();
-		ret->setSibling(tmp_ptr);
+		cur_ptr->setSibling(tmp_ptr);
+
+		cur_ptr = tmp_ptr;
 	}
 	return ret;
 }
@@ -249,6 +261,7 @@ NodePtr analysis::read_stmt()
 	match("read");
 	
 	::std::string tmp_str = identifier();
+
 	tmp_ptr = ::std::make_shared<TreeNode>(tmp_str);
 
 	tmp_ptr->setNodeKind(NodeKind::ExpK);
@@ -292,7 +305,7 @@ NodePtr analysis::exp()
 	{
 		match("<");
 
-		ret = ::std::shared_ptr<TreeNode>("<");
+		ret = ::std::make_shared<TreeNode>("<");
 		ret->setNodeKind( NodeKind::ExpK);
 		ret->setKind(ExpKind::OpK);
 		ret->setType(ExpType::Boolean);
@@ -306,7 +319,7 @@ NodePtr analysis::exp()
 	{
 		match("=");
 
-		ret = ::std::shared_ptr<TreeNode>("=");
+		ret = ::std::make_shared<TreeNode>("=");
 		ret->setNodeKind( NodeKind::ExpK);
 		ret->setKind(ExpKind::OpK);
 		ret->setType(ExpType::Boolean);
@@ -470,8 +483,9 @@ void analysis::init()
 	initFlag = true;
 }
 
-void analysis::printTree() const
+void analysis::printTree()
 {
+	this->init();
 	assert(initFlag == true);
 
 	printTree(this->_root);
@@ -479,9 +493,17 @@ void analysis::printTree() const
 
 void analysis::printTree( const NodePtr& ptr) const
 {
-	if ( ptr->getNodeKind() == NodeKind::StmK)
-	{
+	::boost::variant< ::std::string, int> tmp = ptr->getData();
+	::std::cout << ::boost::apply_visitor( get_visitor(), tmp) << ::std::endl;
 
+	for (auto i : ptr->getChildren())
+	{
+		printTree(i);
+	}
+
+	if ( ptr->getSibling() != nullptr)
+	{
+		printTree(ptr->getSibling());
 	}
 }
 

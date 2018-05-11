@@ -1,6 +1,7 @@
 #include <iostream>
 #include "include/global.h"
 #include "include/scan.h"
+#include "include/analysis.h"
 
 int main( int argc, char** argv)
 {
@@ -22,6 +23,9 @@ int main( int argc, char** argv)
 	tokens.scan( fp);
 
 	tokens.debug();
+	
+	dh::analysis an( tokens);
+	an.printTree();
 
 	return 0;
 }

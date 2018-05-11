@@ -32,6 +32,10 @@ class TreeNode{
 		int getNodeKind() const;
 		int getKind() const;
 		int getType() const;
+		int getChildSize() const;
+
+		// get children
+		::std::vector< NodePtr > getChildren() const;
 
 		// Type need user check
 		::boost::variant< ::std::string, int> getData() const;
