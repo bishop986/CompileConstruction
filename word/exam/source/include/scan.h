@@ -35,9 +35,11 @@ class scanner{
 		scanner& operator=(const scanner& eq);
 		void setBegin();
 		bool isScanned();
+		bool isRight();
 	private:
 
 		bool scanflag;
+		bool rightflag;
 		::std::FILE *_fp;
 		::std::vector< token > _tokens;
 		::std::vector< token >::const_iterator _it;

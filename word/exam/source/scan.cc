@@ -7,6 +7,7 @@ scanner::scanner()
 {
 	_fp = NULL;
 	scanflag = false;
+	rightflag = true;
 	_tokens.clear();
 	line = 1;
 }
@@ -26,6 +27,10 @@ bool scanner::isScanned()
 	return scanflag;
 }
 
+bool scanner::isRight()
+{
+	return rightflag;
+}
 scanner& scanner::operator=(const scanner& eq)
 {
 	this->_tokens.assign( eq._tokens.begin(), eq._tokens.end());
@@ -176,6 +181,7 @@ bool scanner::scan(::std::FILE *fp)
 						<< tmp << " in line " << line
 						<< ::std::endl;
 					tmp.clear();
+					rightflag = false;
 				}
 				break;
 			case STATE::INSEDECI:
@@ -212,6 +218,7 @@ bool scanner::scan(::std::FILE *fp)
 						<< tmp << " in line " << line
 						<< ::std::endl;
 					tmp.clear();
+					rightflag = false;
 				}
 				break;
 			case STATE::INEQ:
@@ -231,6 +238,7 @@ bool scanner::scan(::std::FILE *fp)
 						<< tmp << " in line " << line
 						<< ::std::endl;
 					tmp.clear();
+					rightflag = false;
 				}
 				break;
 			case STATE::INP:
@@ -247,6 +255,7 @@ bool scanner::scan(::std::FILE *fp)
 						<< tmp << " in line " << line
 						<< ::std::endl;
 					tmp.clear();
+					rightflag = false;
 				}
 				break;
 			case STATE::INMINUS:
@@ -270,6 +279,7 @@ bool scanner::scan(::std::FILE *fp)
 						<< tmp << " in line " << line
 						<< ::std::endl;
 					tmp.clear();
+					rightflag = false;
 				}
 				break;
 			case STATE::INSP:
@@ -325,6 +335,7 @@ bool scanner::scan(::std::FILE *fp)
 					::std::cerr << "[ERROR] Unexpected Token: "
 						<< assign << " in line " << line
 						<< ::std::endl;
+					rightflag = false;
 				}
 				break;
 		}
@@ -337,6 +348,10 @@ bool scanner::scan(::std::FILE *fp)
 
 void scanner::debug()
 {
+	if ( !rightflag)
+	{
+		return;
+	}
 	::std::cout << "[INFO] Token Sries: " << ::std::endl;
 	::std::cout << "[size]:" << _tokens.size() << ::std::endl;
 	for(auto i = _tokens.begin(); i != _tokens.end(); ++i)

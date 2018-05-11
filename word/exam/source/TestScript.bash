@@ -9,7 +9,7 @@ echo "**********************Test Begin**********************"
 function check()
 {
 	local report
-	report="[Pass] success with: "
+	report="[HINT] Scan file: "
 	report=${report}${1}
 
 	echo -e "\e[32m"${report}"\e[0m"
