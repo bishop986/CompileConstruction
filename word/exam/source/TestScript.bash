@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-let pass=0
-let error=0
-let total=0
-
 echo "**********************Test Begin**********************"
 
 function check()
@@ -14,10 +10,8 @@ function check()
 
 	echo -e "\e[32m"${report}"\e[0m"
 	echo ${report} >> "../tokenOut.txt"
-	let pass=pass+1
 
-	echo $1 2>> "../tokenOut.txt" 1>> "tokenOut.txt"
-	./thread "../$1" 2>> "../tokenOut.txt" 1>> "../tokenOut.txt"
+	./thread "../$1"
 
 	echo -e "\n" >> "../tokenOut.txt"
 	let total=total+1
@@ -25,17 +19,7 @@ function check()
 
 function finish()
 {
-	echo "[HINT] Finish Check, Reseult saved to output.txt"
-	echo -e "\e[33m**********************Summary************************\e[0m"
-	echo "[SUM] Total:"${total}" test case"
-	echo "[SUM] Pass:"${pass}" test case"
-	echo "[SUM] Error:"${error}" test case"
-
-	if [ ${error} -eq 0 ]; then
-		echo -e "\e[32m[Success] All Clear\e[0m"
-	else
-		echo -e "\e[31m[Fail] Problem Happened\e[0m"
-	fi
+	echo "[HINT] Finish Check, Reseult saved to tokenOut.txt"
 
 	echo "**********************Test End***********************"
 	cd ..

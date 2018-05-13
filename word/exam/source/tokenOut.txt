@@ -1,222 +1,869 @@
 [HINT] Scan file: test/test1.txt
 [INFO] Token Sries: 
-[size]:215
-[token VAL] thread [token TYPE] 0
-[token VAL] Thread1 [token TYPE] 0
-[token VAL] features [token TYPE] 0
-[token VAL] AP_Position_Input [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] in [token TYPE] 0
-[token VAL] event [token TYPE] 0
-[token VAL] data [token TYPE] 0
-[token VAL] port [token TYPE] 0
-[token VAL] Nav_Types [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Position_GPS [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] flows [token TYPE] 0
-[token VAL] flow1 [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] flow [token TYPE] 0
-[token VAL] path [token TYPE] 0
-[token VAL] signal [token TYPE] 0
-[token VAL] -> [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] properties [token TYPE] 0
-[token VAL] dispatch_protocol [token TYPE] 0
-[token VAL] => [token TYPE] 3
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] ; [token TYPE] 3
-[token VAL] end [token TYPE] 0
-[token VAL] Thread1 [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] thread [token TYPE] 0
-[token VAL] Thread_2 [token TYPE] 0
-[token VAL] features [token TYPE] 0
-[token VAL] AP_Position_Input [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] in [token TYPE] 0
-[token VAL] data [token TYPE] 0
-[token VAL] port [token TYPE] 0
-[token VAL] Nav_Types1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Nav_Types2 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Position_GPS [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] flows [token TYPE] 0
-[token VAL] flow1 [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] flow [token TYPE] 0
-[token VAL] source [token TYPE] 0
-[token VAL] signal [token TYPE] 0
-[token VAL] { [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] result2 [token TYPE] 0
-[token VAL] +=> [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] } [token TYPE] 3
-[token VAL] ; [token TYPE] 3
-[token VAL] properties [token TYPE] 0
-[token VAL] none [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] end [token TYPE] 0
-[token VAL] Thread_2 [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] thread [token TYPE] 0
-[token VAL] Thread3d [token TYPE] 0
-[token VAL] features [token TYPE] 0
-[token VAL] AP_Position_Input [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] out [token TYPE] 0
-[token VAL] data [token TYPE] 0
-[token VAL] port [token TYPE] 0
-[token VAL] Nav_Types1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Nav_Types2 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Position_GPS [token TYPE] 0
-[token VAL] { [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] result2 [token TYPE] 0
-[token VAL] +=> [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] } [token TYPE] 3
-[token VAL] ; [token TYPE] 3
-[token VAL] flows [token TYPE] 0
-[token VAL] flow1 [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] flow [token TYPE] 0
-[token VAL] sink [token TYPE] 0
-[token VAL] signal [token TYPE] 0
-[token VAL] { [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] result2 [token TYPE] 0
-[token VAL] +=> [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] } [token TYPE] 3
-[token VAL] ; [token TYPE] 3
-[token VAL] properties [token TYPE] 0
-[token VAL] size [token TYPE] 0
-[token VAL] => [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] +50.0 [token TYPE] 1
-[token VAL] ; [token TYPE] 3
-[token VAL] end [token TYPE] 0
-[token VAL] Thread3d [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] thread [token TYPE] 0
-[token VAL] Thread4 [token TYPE] 0
-[token VAL] features [token TYPE] 0
-[token VAL] AP_Position_Input [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] in [token TYPE] 0
-[token VAL] out [token TYPE] 0
-[token VAL] parameter [token TYPE] 0
-[token VAL] Nav_Types1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Nav_Types2 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] Position_GPS [token TYPE] 0
-[token VAL] { [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] result2 [token TYPE] 0
-[token VAL] => [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] } [token TYPE] 3
-[token VAL] ; [token TYPE] 3
-[token VAL] flows [token TYPE] 0
-[token VAL] flow1 [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] flow [token TYPE] 0
-[token VAL] sink [token TYPE] 0
-[token VAL] signal [token TYPE] 0
-[token VAL] { [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] result2 [token TYPE] 0
-[token VAL] +=> [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] } [token TYPE] 3
-[token VAL] ; [token TYPE] 3
-[token VAL] properties [token TYPE] 0
-[token VAL] size [token TYPE] 0
-[token VAL] => [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] -50.0 [token TYPE] 1
-[token VAL] ; [token TYPE] 3
-[token VAL] end [token TYPE] 0
-[token VAL] Thread4 [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] thread [token TYPE] 0
-[token VAL] Thread5 [token TYPE] 0
-[token VAL] features [token TYPE] 0
-[token VAL] AP_Position_Input [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] in [token TYPE] 0
-[token VAL] out [token TYPE] 0
-[token VAL] event [token TYPE] 0
-[token VAL] port [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] flows [token TYPE] 0
-[token VAL] flow1 [token TYPE] 0
-[token VAL] : [token TYPE] 3
-[token VAL] flow [token TYPE] 0
-[token VAL] sink [token TYPE] 0
-[token VAL] signal [token TYPE] 0
-[token VAL] { [token TYPE] 3
-[token VAL] result1 [token TYPE] 0
-[token VAL] :: [token TYPE] 3
-[token VAL] result2 [token TYPE] 0
-[token VAL] +=> [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] } [token TYPE] 3
-[token VAL] ; [token TYPE] 3
-[token VAL] properties [token TYPE] 0
-[token VAL] size [token TYPE] 0
-[token VAL] => [token TYPE] 3
-[token VAL] constant [token TYPE] 0
-[token VAL] access [token TYPE] 0
-[token VAL] 50.0 [token TYPE] 1
-[token VAL] ; [token TYPE] 3
-[token VAL] end [token TYPE] 0
-[token VAL] Thread5 [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] thread [token TYPE] 0
-[token VAL] Thread6 [token TYPE] 0
-[token VAL] features [token TYPE] 0
-[token VAL] none [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] flows [token TYPE] 0
-[token VAL] none [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] properties [token TYPE] 0
-[token VAL] none [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[token VAL] end [token TYPE] 0
-[token VAL] Thread6 [token TYPE] 0
-[token VAL] ; [token TYPE] 3
-[INFO] Token Sries End
+[INFO] Size: 215
+[
+    {
+        "Token Type": "THREAD",
+        "Token Val": "thread"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread1"
+    },
+    {
+        "Token Type": "FEATURES",
+        "Token Val": "features"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "AP_Position_Input"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "in"
+    },
+    {
+        "Token Type": "EVENT",
+        "Token Val": "event"
+    },
+    {
+        "Token Type": "DATA",
+        "Token Val": "data"
+    },
+    {
+        "Token Type": "PORT",
+        "Token Val": "port"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Position_GPS"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "FLOWS",
+        "Token Val": "flows"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "flow1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "FLOW",
+        "Token Val": "flow"
+    },
+    {
+        "Token Type": "PATH",
+        "Token Val": "path"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "signal"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "->"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "PROPERTIES",
+        "Token Val": "properties"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "dispatch_protocol"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "=>"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "END",
+        "Token Val": "end"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "THREAD",
+        "Token Val": "thread"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread_2"
+    },
+    {
+        "Token Type": "FEATURES",
+        "Token Val": "features"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "AP_Position_Input"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "in"
+    },
+    {
+        "Token Type": "DATA",
+        "Token Val": "data"
+    },
+    {
+        "Token Type": "PORT",
+        "Token Val": "port"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Position_GPS"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "FLOWS",
+        "Token Val": "flows"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "flow1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "FLOW",
+        "Token Val": "flow"
+    },
+    {
+        "Token Type": "SOURCE",
+        "Token Val": "source"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "signal"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "{"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "+=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "}"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "PROPERTIES",
+        "Token Val": "properties"
+    },
+    {
+        "Token Type": "NONE",
+        "Token Val": "none"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "END",
+        "Token Val": "end"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread_2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "THREAD",
+        "Token Val": "thread"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread3d"
+    },
+    {
+        "Token Type": "FEATURES",
+        "Token Val": "features"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "AP_Position_Input"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "OUT",
+        "Token Val": "out"
+    },
+    {
+        "Token Type": "DATA",
+        "Token Val": "data"
+    },
+    {
+        "Token Type": "PORT",
+        "Token Val": "port"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Position_GPS"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "{"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "+=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "}"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "FLOWS",
+        "Token Val": "flows"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "flow1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "FLOW",
+        "Token Val": "flow"
+    },
+    {
+        "Token Type": "SINK",
+        "Token Val": "sink"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "signal"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "{"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "+=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "}"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "PROPERTIES",
+        "Token Val": "properties"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "size"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "+50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "END",
+        "Token Val": "end"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread3d"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "THREAD",
+        "Token Val": "thread"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread4"
+    },
+    {
+        "Token Type": "FEATURES",
+        "Token Val": "features"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "AP_Position_Input"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "in"
+    },
+    {
+        "Token Type": "OUT",
+        "Token Val": "out"
+    },
+    {
+        "Token Type": "PARAMETER",
+        "Token Val": "parameter"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Nav_Types2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Position_GPS"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "{"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "}"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "FLOWS",
+        "Token Val": "flows"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "flow1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "FLOW",
+        "Token Val": "flow"
+    },
+    {
+        "Token Type": "SINK",
+        "Token Val": "sink"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "signal"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "{"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "+=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "}"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "PROPERTIES",
+        "Token Val": "properties"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "size"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "-50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "END",
+        "Token Val": "end"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread4"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "THREAD",
+        "Token Val": "thread"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread5"
+    },
+    {
+        "Token Type": "FEATURES",
+        "Token Val": "features"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "AP_Position_Input"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "in"
+    },
+    {
+        "Token Type": "OUT",
+        "Token Val": "out"
+    },
+    {
+        "Token Type": "EVENT",
+        "Token Val": "event"
+    },
+    {
+        "Token Type": "PORT",
+        "Token Val": "port"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "FLOWS",
+        "Token Val": "flows"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "flow1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ":"
+    },
+    {
+        "Token Type": "FLOW",
+        "Token Val": "flow"
+    },
+    {
+        "Token Type": "SINK",
+        "Token Val": "sink"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "signal"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "{"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result1"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "::"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "result2"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "+=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "}"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "PROPERTIES",
+        "Token Val": "properties"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "size"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": "=>"
+    },
+    {
+        "Token Type": "CONSTANT",
+        "Token Val": "constant"
+    },
+    {
+        "Token Type": "ACCESS",
+        "Token Val": "access"
+    },
+    {
+        "Token Type": "DECIMAL",
+        "Token Val": "50.0"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "END",
+        "Token Val": "end"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread5"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "THREAD",
+        "Token Val": "thread"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread6"
+    },
+    {
+        "Token Type": "FEATURES",
+        "Token Val": "features"
+    },
+    {
+        "Token Type": "NONE",
+        "Token Val": "none"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "FLOWS",
+        "Token Val": "flows"
+    },
+    {
+        "Token Type": "NONE",
+        "Token Val": "none"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "PROPERTIES",
+        "Token Val": "properties"
+    },
+    {
+        "Token Type": "NONE",
+        "Token Val": "none"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    },
+    {
+        "Token Type": "END",
+        "Token Val": "end"
+    },
+    {
+        "Token Type": "IDENTIFIER",
+        "Token Val": "Thread6"
+    },
+    {
+        "Token Type": "SYMBOL",
+        "Token Val": ";"
+    }
+]
+[INFO] Token End
 
 
 [HINT] Scan file: test/test2.txt

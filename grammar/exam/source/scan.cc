@@ -1,5 +1,9 @@
 #include "include/scan.h"
 #include "include/global.h"
+#include "include/json.hpp"
+#include <fstream>
+
+using json = ::nlohmann::json;
 
 namespace dh{
 
@@ -10,6 +14,17 @@ scanner::scanner()
 	rightflag = true;
 	_tokens.clear();
 	line = 1;
+}
+
+scanner::scanner( const ::std::string& fp)
+{
+	_fp = NULL;
+	scanflag = false;
+	rightflag = true;
+	_tokens.clear();
+	line = 1;
+
+	this->getTokenFromFile(fp);
 }
 
 void scanner::destroy()
@@ -182,6 +197,9 @@ bool scanner::scan(::std::FILE *fp)
 					} else if ( tmp == "out")
 					{
 						type_tmp = TYPE::OUT;
+					} else if ( tmp == "in") 
+					{
+						type_tmp = TYPE::IN;
 					} else if ( tmp == "port")
 					{
 						type_tmp = TYPE::PORT;
@@ -234,7 +252,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::cout << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -271,7 +289,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::cout << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -291,7 +309,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::cout << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -308,7 +326,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::cout << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -332,7 +350,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::cout << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -389,7 +407,7 @@ bool scanner::scan(::std::FILE *fp)
 				{
 					state = STATE::START;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::cout << "[ERROR] Unexpected Token: \""
 						<< assign << "\" in line " << line
 						<< ::std::endl;
 					rightflag = false;
@@ -403,17 +421,22 @@ bool scanner::scan(::std::FILE *fp)
 	return true;
 }
 
-void scanner::debug()
+void scanner::dump(const ::std::string& path)
 {
+	json j;
+
 	if ( !rightflag)
 	{
 		return;
 	}
-	::std::cout << "[INFO] Token Sries: " << ::std::endl;
-	::std::cout << "[size]:" << _tokens.size() << ::std::endl;
+	::std::ofstream outf(path.c_str());
+	::std::cout << "[INFO] " << "Dump all Tokens to " << path << ::std::endl;
+	::std::cout << "[INFO] Token: Size: " << _tokens.size() << ::std::endl;
+
+	int counter = 0;
 	for(auto i = _tokens.begin(); i != _tokens.end(); ++i)
 	{
-		::std::cout << "[token VAL] "  << i->getVal();
+		j[counter]["Token Val"] = i->getVal();
 
 		::std::string type_str = "";
 		switch( i->getType())
@@ -481,11 +504,104 @@ void scanner::debug()
 			case SINK:
 				type_str = "SINK";
 				break;
+			case IN:
+				type_str = "IN";
 		}
-		::std::cout << " [token TYPE] "<< type_str;
-		::std::cout << ::std::endl;
+
+		j[counter++]["Token Type"] = type_str;
 	}
-	::std::cout << "[INFO] Token Sries End" << ::std::endl;
+	outf << ::std::setw(4) << j << std::endl;
+}
+
+void scanner::getTokenFromFile( const::std::string & fp)
+{
+	::std::ifstream inf(fp);
+	if ( !inf)
+	{
+		::std::cerr << "[ERROR] No such file" << ::std::endl;
+		::std::exit(1);
+	}
+
+	json j;
+	inf >> j;
+
+	_tokens.clear();
+	scanflag = false;
+	for ( auto it = j.begin(); it != j.end(); ++it)
+	{
+		::std::string tmp_str = (*it)["Token Val"];
+		::std::string tmp_type = (*it)["Token Type"];
+		TYPE type;
+
+		if ( tmp_type == "NONE")
+		{
+			type = TYPE::NONE;
+		} else if ( tmp_type == "SYMBOL")
+		{
+			type = TYPE::SYMBOL;
+		} else if ( tmp_type == "IDENTIFIER")
+		{
+			type = TYPE::IDENTIFIER;
+		} else if ( tmp_type == "END")
+		{
+			type = TYPE::END;
+		} else if ( tmp_type == "PROPERTIES")
+		{
+			type = TYPE::PROPERTIES;
+		} else if ( tmp_type == "FLOW")
+		{
+			type = TYPE::FLOW;
+		} else if ( tmp_type == "FLOWS")
+		{
+			type = TYPE::FLOWS;
+		} else if ( tmp_type == "FEATURES")
+		{
+			type = TYPE::FEATURES;
+		} else if ( tmp_type == "DATA")
+		{
+			type = TYPE::DATA;
+		} else if ( tmp_type == "PORT")
+		{
+			type = TYPE::PORT;
+		} else if ( tmp_type == "DECIMAL")
+		{
+			type = TYPE::DECIMAL;
+		} else if ( tmp_type == "PATH")
+		{
+			type = TYPE::PATH;
+		} else if ( tmp_type == "SINK")
+		{
+			type = TYPE::SINK;
+		} else if ( tmp_type == "IN")
+		{
+			type = TYPE::IN;
+		} else if ( tmp_type == "OUT")
+		{
+			type = TYPE::OUT;
+		} else if ( tmp_type == "ACCESS")
+		{
+			type = TYPE::ACCESS;
+		} else if ( tmp_type == "EVENT")
+		{
+			type = TYPE::EVENT;
+		} else if ( tmp_type == "THREAD")
+		{
+			type = TYPE::THREAD;
+		} else if ( tmp_type == "CONSTANT")
+		{
+			type = TYPE::CONSTANT;
+		} else if ( tmp_type == "PARAMETER")
+		{
+			type = TYPE::PARAMETER;
+		} else if ( tmp_type == "SOURCE")
+		{
+			type = TYPE::SOURCE;
+		}
+
+		_tokens.push_back( token(tmp_str, type));
+	}
+	_it = _tokens.begin();
+	scanflag = true;
 }
 
 }

@@ -25,8 +25,9 @@ class token{
 class scanner{
 	public:
 
-		void debug();
+		void dump(const ::std::string& path);
 		scanner();
+		scanner( const ::std::string& fp);
 		bool scan( ::std::FILE *fp);
 		token getToken();
 		bool ungetToken();
@@ -38,6 +39,7 @@ class scanner{
 		bool isRight();
 	private:
 
+		void getTokenFromFile(const ::std::string& fp);
 		bool scanflag;
 		bool rightflag;
 		::std::FILE *_fp;

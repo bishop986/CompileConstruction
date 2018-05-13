@@ -3,6 +3,7 @@
 #include "include/analysis.h"
 #include <assert.h>
 #include <sstream>
+#include <fstream>
 
 namespace dh 
 {
@@ -530,8 +531,13 @@ void analysis::printTree()
 
 void analysis::printTree( const NodePtr& ptr) const
 {
+	::std::ofstream outf("../SyntaxOut.txt", std::ios::app);
+
 	::boost::variant< ::std::string, int> tmp = ptr->getData();
-	::std::cout << ::boost::apply_visitor( get_visitor(), tmp) << ::std::endl;
+
+	outf << ::boost::apply_visitor( get_visitor(), tmp) << ::std::endl;
+
+	outf.close();
 
 	for (auto i : ptr->getChildren())
 	{

@@ -1,5 +1,9 @@
 #include "include/scan.h"
 #include "include/global.h"
+#include "include/json.hpp"
+#include <fstream>
+
+using json = ::nlohmann::json;
 
 namespace dh{
 
@@ -50,7 +54,7 @@ token scanner::getToken()
 {
 	if ( scanflag == false || _tokens.end() == _it)
 	{
-		return token( "", TYPE::NONE);
+		return token( "", TYPE::NONES);
 	}
 
 	//::std::cout << "[SS] " << _it->getVal() << std::endl;
@@ -155,11 +159,68 @@ bool scanner::scan(::std::FILE *fp)
 				} else 
 				{
 					state = STATE::DONE;
+					assign = cur;
+					TYPE type_tmp = TYPE::IDENTIFIER;
 
-					_tokens.push_back( token( tmp, TYPE::IDENTIFIER));
+					if ( tmp == "thread")
+					{
+						type_tmp = TYPE::THREAD;
+					} else if ( tmp == "features")
+					{
+						type_tmp = TYPE::FEATURES;
+					} else if ( tmp == "flows")
+					{
+						type_tmp = TYPE::FLOWS;
+					} else if ( tmp == "properties")
+					{
+						type_tmp = TYPE::PROPERTIES;
+					} else if ( tmp == "end")
+					{
+						type_tmp = TYPE::END;
+					} else if ( tmp == "none")
+					{
+						type_tmp = TYPE::NONE;
+					} else if ( tmp == "data") 
+					{
+						type_tmp = TYPE::DATA;
+					} else if ( tmp == "out")
+					{
+						type_tmp = TYPE::OUT;
+					} else if ( tmp == "port")
+					{
+						type_tmp = TYPE::PORT;
+					} else if ( tmp == "event")
+					{
+						type_tmp = TYPE::EVENT;
+					} else if ( tmp == "parameter")
+					{
+						type_tmp = TYPE::PARAMETER;
+					} else if ( tmp == "flow")
+					{
+						type_tmp = TYPE::FLOW;
+					} else if ( tmp == "source")
+					{
+						type_tmp = TYPE::SOURCE;
+					} else if ( tmp == "path")
+					{
+						type_tmp = TYPE::PATH;
+					} else if ( tmp == "constant")
+					{
+						type_tmp = TYPE::CONSTANT;
+					} else if ( tmp == "access")
+					{
+						type_tmp = TYPE::ACCESS;
+					} else if ( tmp == "sink") 
+					{
+						type_tmp = TYPE::SINK;
+					} else 
+					{
+						type_tmp = TYPE::IDENTIFIER;
+					}
+
+					_tokens.push_back( token( tmp, type_tmp));
 					tmp.clear();
 
-					assign = cur;
 					continue;
 				}
 				break;
@@ -177,7 +238,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+					outf << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -214,7 +276,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+					outf << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -227,14 +290,15 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					_tokens.push_back( token( tmp, TYPE::SYMBOL));
 					tmp.clear();
 				} else 
 				{
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+					outf << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -251,7 +315,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+					outf << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -264,7 +329,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					_tokens.push_back( token( tmp, TYPE::SYMBOL));
 					tmp.clear();
 				} else if ( cur >= '0' && cur <= '9')
 				{
@@ -275,7 +340,8 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+					outf << "[ERROR] Unexpected Token: \""
 						<< tmp << "\" in line " << line
 						<< ::std::endl;
 					tmp.clear();
@@ -288,14 +354,14 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;
 					tmp += cur;
 
-					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					_tokens.push_back( token( tmp, TYPE::SYMBOL));
 					tmp.clear();
 				} else 
 				{
 					state = STATE::DONE;
 					assign = cur;
 
-					_tokens.push_back( token( tmp, TYPE::ASSIGN));
+					_tokens.push_back( token( tmp, TYPE::SYMBOL));
 
 					tmp.clear();
 					continue;
@@ -318,7 +384,7 @@ bool scanner::scan(::std::FILE *fp)
 					::std::string str = "";
 					str += assign;
 
-					_tokens.push_back( token( str, TYPE::ASSIGN));
+					_tokens.push_back( token( str, TYPE::SYMBOL));
 				} else if ( assign <= '9' && assign >= '0')
 				{
 					state = STATE::START;
@@ -332,7 +398,8 @@ bool scanner::scan(::std::FILE *fp)
 				{
 					state = STATE::START;
 
-					::std::cerr << "[ERROR] Unexpected Token: \""
+					::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+					outf << "[ERROR] Unexpected Token: \""
 						<< assign << "\" in line " << line
 						<< ::std::endl;
 					rightflag = false;
@@ -348,19 +415,95 @@ bool scanner::scan(::std::FILE *fp)
 
 void scanner::debug()
 {
+	json j;
+
 	if ( !rightflag)
 	{
 		return;
 	}
-	::std::cout << "[INFO] Token Sries: " << ::std::endl;
-	::std::cout << "[size]:" << _tokens.size() << ::std::endl;
+	::std::ofstream outf("../tokenOut.txt", ::std::ios::app);
+
+	outf << "[INFO] Token Sries: " << ::std::endl;
+	outf << "[INFO] Size: " << _tokens.size() << ::std::endl;
+
+	int counter = 0;
 	for(auto i = _tokens.begin(); i != _tokens.end(); ++i)
 	{
-		::std::cout << "[token VAL] "  << i->getVal();
-		::std::cout << " [token TYPE] " << i->getType();
-		::std::cout << ::std::endl;
+		j[counter]["Token Val"] = i->getVal();
+
+		::std::string type_str = "";
+		switch( i->getType())
+		{
+			case THREAD:
+				type_str = "THREAD";
+				break;
+			case FEATURES:	
+				type_str = "FEATURES";
+				break;
+			case FLOWS:
+				type_str = "FLOWS";
+				break;
+			case PROPERTIES:
+				type_str = "PROPERTIES";
+				break;
+			case END:
+				type_str = "END";
+				break;
+			case NONE:
+				type_str = "NONE";
+				break;
+			case NONES:
+				type_str = "NONES";
+				break;
+			case OUT:
+				type_str = "OUT";
+				break;
+			case DATA:
+				type_str = "DATA";
+				break;
+			case PORT:
+				type_str = "PORT";
+				break;
+			case EVENT:
+				type_str = "EVENT";
+				break;
+			case PARAMETER:
+				type_str = "PARAMETER";
+				break;
+			case FLOW:
+				type_str = "FLOW";
+				break;
+			case SOURCE:
+				type_str = "SOURCE";
+				break;
+			case PATH:
+				type_str = "PATH";
+				break;
+			case CONSTANT:
+				type_str = "CONSTANT";
+				break;
+			case ACCESS:
+				type_str = "ACCESS";
+				break;
+			case IDENTIFIER:
+				type_str = "IDENTIFIER";
+				break;
+			case DECIMAL:
+				type_str = "DECIMAL";
+				break;
+			case SYMBOL:
+				type_str = "SYMBOL";
+				break;
+			case SINK:
+				type_str = "SINK";
+				break;
+		}
+
+		j[counter++]["Token Type"] = type_str;
 	}
-	::std::cout << "[INFO] Token Sries End" << ::std::endl;
+	outf << ::std::setw(4) << j << std::endl;
+
+	outf << "[INFO] Token End" << ::std::endl;
 }
 
 }

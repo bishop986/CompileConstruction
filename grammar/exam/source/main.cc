@@ -22,15 +22,18 @@ int main( int argc, char** argv)
 	dh::scanner tokens;
 	tokens.scan( fp);
 
-	tokens.debug();
+	tokens.dump("../tokenOut.txt");
 
+	dh::scanner scan("../tokenOut.txt");
+
+	//scan.dump( "../tokenOut2.txt");
 	if ( !tokens.isRight())
 	{
 		return 1;
 	}
 
-	std::cout << "\n\n[HINT] PostOrder print this tree:" << ::std::endl;
-	dh::analysis an(tokens);
+	std::cout << "[HINT] PostOrder print this tree to SyntaxOut.txt" << ::std::endl;
+	dh::analysis an(scan);
 	an.printTree();
 
 	return 0;
