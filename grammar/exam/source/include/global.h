@@ -11,13 +11,21 @@ enum STATE {
 
 /*********Token Type**********/
 enum TYPE {
-	IDENTIFIER, DECIMAL, NONE, SYMBOL, THREAD, FEATURES, FLOWS, PROPERTIES, END, NONES, OUT, DATA, PORT, EVENT, PARAMETER, FLOW, SOURCE, PATH, CONSTANT, ACCESS
+	IDENTIFIER, DECIMAL, NONE, SYMBOL, THREAD, FEATURES, FLOWS, PROPERTIES, END, NONES, OUT, DATA, PORT, EVENT, PARAMETER, FLOW, SOURCE, PATH, CONSTANT, ACCESS, SINK
 };
 
 
 /*********Node kind**********/
-enum KIND {
-	OpK = 20, NumK
+enum NodeKind {
+	ThreadK = 20, SpecK, TypeK, AssociationK, ReferenceK, IDK, ConstK, PackageK
+};
+
+enum SpecKind {
+	PortK, ParamK, flowSourceK, flowSinkK, flowPathK, NoneK
+};
+
+enum TypeKind {
+	IOType, PortType
 };
 
 }

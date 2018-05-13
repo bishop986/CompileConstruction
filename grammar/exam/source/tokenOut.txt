@@ -1,4 +1,59 @@
-[HINT] Scan file: test/test1.txt
+[HINT] Scan file: TestFile/mytest1.txt
+[INFO] Token Sries: 
+[size]:31
+[token VAL] thread [token TYPE] THREAD
+[token VAL] Thread1 [token TYPE] IDENTIFIER
+[token VAL] features [token TYPE] FEATURES
+[token VAL] AP_Position_Input [token TYPE] IDENTIFIER
+[token VAL] : [token TYPE] SYMBOL
+[token VAL] in [token TYPE] IDENTIFIER
+[token VAL] event [token TYPE] EVENT
+[token VAL] data [token TYPE] DATA
+[token VAL] port [token TYPE] PORT
+[token VAL] Nav_Types [token TYPE] IDENTIFIER
+[token VAL] :: [token TYPE] SYMBOL
+[token VAL] Position_GPS [token TYPE] IDENTIFIER
+[token VAL] ; [token TYPE] SYMBOL
+[token VAL] flows [token TYPE] FLOWS
+[token VAL] flow1 [token TYPE] IDENTIFIER
+[token VAL] : [token TYPE] SYMBOL
+[token VAL] flow [token TYPE] FLOW
+[token VAL] path [token TYPE] PATH
+[token VAL] signal [token TYPE] IDENTIFIER
+[token VAL] -> [token TYPE] SYMBOL
+[token VAL] result1 [token TYPE] IDENTIFIER
+[token VAL] ; [token TYPE] SYMBOL
+[token VAL] properties [token TYPE] PROPERTIES
+[token VAL] dispatch_protocol [token TYPE] IDENTIFIER
+[token VAL] => [token TYPE] SYMBOL
+[token VAL] access [token TYPE] ACCESS
+[token VAL] 50.0 [token TYPE] DECIMAL
+[token VAL] ; [token TYPE] SYMBOL
+[token VAL] end [token TYPE] END
+[token VAL] Thread1 [token TYPE] IDENTIFIER
+[token VAL] ; [token TYPE] SYMBOL
+[INFO] Token Sries End
+
+
+[HINT] PostOrder print this tree:
+Thread1
+AP_Position_Input
+in
+event data
+Position_GPS
+Nav_Types
+event data
+Position_GPS
+Nav_Types
+flow1
+signal
+result1
+dispatch_protocol
+50
+Thread1
+
+
+[HINT] Scan file: TestFile/test1.txt
 [INFO] Token Sries: 
 [size]:215
 [token VAL] thread [token TYPE] THREAD
@@ -95,7 +150,7 @@
 [token VAL] flow1 [token TYPE] IDENTIFIER
 [token VAL] : [token TYPE] SYMBOL
 [token VAL] flow [token TYPE] FLOW
-[token VAL] sink [token TYPE] IDENTIFIER
+[token VAL] sink [token TYPE] SINK
 [token VAL] signal [token TYPE] IDENTIFIER
 [token VAL] { [token TYPE] SYMBOL
 [token VAL] result1 [token TYPE] IDENTIFIER
@@ -144,7 +199,7 @@
 [token VAL] flow1 [token TYPE] IDENTIFIER
 [token VAL] : [token TYPE] SYMBOL
 [token VAL] flow [token TYPE] FLOW
-[token VAL] sink [token TYPE] IDENTIFIER
+[token VAL] sink [token TYPE] SINK
 [token VAL] signal [token TYPE] IDENTIFIER
 [token VAL] { [token TYPE] SYMBOL
 [token VAL] result1 [token TYPE] IDENTIFIER
@@ -180,7 +235,7 @@
 [token VAL] flow1 [token TYPE] IDENTIFIER
 [token VAL] : [token TYPE] SYMBOL
 [token VAL] flow [token TYPE] FLOW
-[token VAL] sink [token TYPE] IDENTIFIER
+[token VAL] sink [token TYPE] SINK
 [token VAL] signal [token TYPE] IDENTIFIER
 [token VAL] { [token TYPE] SYMBOL
 [token VAL] result1 [token TYPE] IDENTIFIER
@@ -219,7 +274,96 @@
 [INFO] Token Sries End
 
 
-[HINT] Scan file: test/test2.txt
+[HINT] PostOrder print this tree:
+Thread1
+AP_Position_Input
+in
+event data
+Position_GPS
+Nav_Types
+event data
+Position_GPS
+Nav_Types
+flow1
+signal
+result1
+dispatch_protocol
+50
+Thread1
+Thread_2
+AP_Position_Input
+in
+data
+Position_GPS
+Nav_Types1
+Nav_Types2
+data
+Position_GPS
+Nav_Types1
+Nav_Types2
+flow1
+signal
+result1
+result2
+50
+none
+Thread_2
+Thread3d
+AP_Position_Input
+out
+data
+Position_GPS
+Nav_Types1
+Nav_Types2
+result1
+result2
+50
+flow1
+signal
+result1
+result2
+50
+size
+50
+Thread3d
+Thread4
+AP_Position_Input
+in out
+Position_GPS
+Nav_Types1
+Nav_Types2
+result1
+result2
+50
+flow1
+signal
+result1
+result2
+50
+size
+-50
+Thread4
+Thread5
+AP_Position_Input
+in out
+event port
+event port
+flow1
+signal
+result1
+result2
+50
+size
+50
+Thread5
+Thread6
+none
+none
+none
+Thread6
+
+
+[HINT] Scan file: TestFile/test2.txt
 [ERROR] Unexpected Token: "#" in line 1
 [ERROR] Unexpected Token: "_" in line 3
 [ERROR] Unexpected Token: "1f" in line 5
@@ -228,7 +372,7 @@
 [ERROR] Unexpected Token: "01;" in line 16
 
 
-[HINT] Scan file: test/test3.txt
+[HINT] Scan file: TestFile/test3.txt
 [ERROR] Unexpected Token: "#" in line 1
 [ERROR] Unexpected Token: "_" in line 3
 [ERROR] Unexpected Token: "1f" in line 5

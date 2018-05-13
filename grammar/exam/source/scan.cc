@@ -206,6 +206,9 @@ bool scanner::scan(::std::FILE *fp)
 					} else if ( tmp == "access")
 					{
 						type_tmp = TYPE::ACCESS;
+					} else if ( tmp == "sink") 
+					{
+						type_tmp = TYPE::SINK;
 					} else 
 					{
 						type_tmp = TYPE::IDENTIFIER;
@@ -474,6 +477,9 @@ void scanner::debug()
 				break;
 			case SYMBOL:
 				type_str = "SYMBOL";
+				break;
+			case SINK:
+				type_str = "SINK";
 				break;
 		}
 		::std::cout << " [token TYPE] "<< type_str;

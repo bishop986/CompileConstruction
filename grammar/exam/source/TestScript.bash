@@ -73,9 +73,10 @@ init;
 
 # Test Code Put here
 
-check "test/test1.txt" ;
-check "test/test2.txt" ;
-check "test/test3.txt" ;
+check "TestFile/mytest1.txt" ;
+check "TestFile/test1.txt" ;
+check "TestFile/test2.txt" ;
+check "TestFile/test3.txt" ;
 
 # Test Code End
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "include/global.h"
 #include "include/scan.h"
+#include "include/analysis.h"
 
 int main( int argc, char** argv)
 {
@@ -22,6 +23,15 @@ int main( int argc, char** argv)
 	tokens.scan( fp);
 
 	tokens.debug();
+
+	if ( !tokens.isRight())
+	{
+		return 1;
+	}
+
+	std::cout << "\n\n[HINT] PostOrder print this tree:" << ::std::endl;
+	dh::analysis an(tokens);
+	an.printTree();
 
 	return 0;
 }
