@@ -32,7 +32,7 @@ int main( int argc, char** argv)
 		return 1;
 	}
 
-	std::cout << "[HINT] PostOrder print this tree to SyntaxOut.txt" << ::std::endl;
+	std::cout << "[HINT] Pre-Order print this tree to SyntaxOut.txt" << ::std::endl;
 	dh::analysis an(scan);
 	an.printTree();
 
