@@ -623,6 +623,8 @@ void analysis::buildSymTab( const NodePtr& ptr)
 
 	ss << tmp_name_counter++;
 
+	symTab["@"+ss.str()] = ExpType::Integer;
+
 	return "@" + ss.str();
 }
 
