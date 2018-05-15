@@ -22,14 +22,16 @@ int main( int argc, char** argv)
 	dh::scanner tokens;
 	tokens.scan( fp);
 
-	tokens.debug();
+	//tokens.debug();
 	if ( !tokens.isRight())
 	{
 		return 1;
 	}
 	
 	dh::analysis an( tokens);
-	an.printTree();
+	an.buildSymTab();
+
+	an.genMidCode();
 
 	return 0;
 }

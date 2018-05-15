@@ -43,15 +43,27 @@ class TreeNode{
 		// get next sibling
 		NodePtr getSibling() const;
 
+		void setStrVal( const ::std::string str)
+		{
+			this->strval = str;
+		}
+
+		::std::string getStrVal()
+		{
+			return this->strval;
+		}
+
 	private:
 		::std::vector< ::std::shared_ptr<TreeNode> > _children;
 		NodePtr _sibling;
+		::std::string strval;
 
 		int _nodekind;
 		int _kind;
 
 		::boost::variant< ::std::string, int> _data;
 		int _type;
+
 
 };
 

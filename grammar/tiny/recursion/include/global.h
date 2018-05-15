@@ -12,25 +12,25 @@ enum STATE {
 
 /*********Token Type**********/
 enum TYPE {
-	NUM, ID, ERROR, RESERVED, NONE, ASSIGN
+	NUM = 6, ID, ERROR, RESERVED, NONE, ASSIGN
 };
 
 
 /*********Node kind**********/
 enum NodeKind {
-	StmK, ExpK
+	StmK = 12, ExpK
 };
 
 enum StmtKind {
-	IfK, RepeatK, AssignK, ReadK, WriteK
+	IfK = 14, RepeatK, AssignK, ReadK, WriteK
 };
 
 enum ExpKind {
-	OpK, ConstK, IdK
+	OpK = 19, ConstK, IdK
 };
 
 enum ExpType {
-	Void, Integer, Boolean
+	Void = 22, Boolean, Integer
 };
 
 }

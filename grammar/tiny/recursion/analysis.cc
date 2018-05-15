@@ -3,6 +3,7 @@
 #include "include/analysis.h"
 #include <assert.h>
 #include <sstream>
+#include <fstream>
 
 namespace dh 
 {
@@ -10,7 +11,9 @@ analysis::analysis(scanner tokens)
 {
 	this->_tokens = tokens;
 	this->tmp = ::std::make_shared<token>("", TYPE::NONE);
+	this->tmp_name_counter = 0;
 	initFlag = false;
+	genFlag = false;
 
 #ifdef _DEBUG_
 	assert(tokens.isScanned());
@@ -113,8 +116,19 @@ NodePtr analysis::stmt_sequence()
 
 	ret = statement();
 	cur_ptr = ret;
-	while( tmp->getVal() == ";")
+	while(1)
 	{
+		if ( tmp->getVal() == "" || tmp->getType() == TYPE::RESERVED)
+		{
+			break;
+		}
+
+		if (tmp->getVal() != ";")
+		{
+			::std::cout << "[ERROR] Expected Symbol: \";\" while get "
+				<< tmp->getVal() << ::std::endl;
+			::std::exit(1);
+		}
 		NodePtr tmp_ptr;
 
 		match(";");
@@ -473,7 +487,7 @@ auto analysis::getRoot()
 	return _root;
 }
 
-void analysis::init()
+void analysis::initSynTree()
 {
 #ifdef _DEBUG_
 	::std::cout << "[DEBUG] in init" << ::std::endl;
@@ -483,12 +497,19 @@ void analysis::init()
 	initFlag = true;
 }
 
-void analysis::printTree()
+void analysis::buildSymTab()
 {
-	this->init();
+	this->initSynTree();
 	assert(initFlag == true);
 
-	printTree(this->_root);
+	buildSymTab(_root);
+
+	for ( auto it = symTab.begin(); it != symTab.end(); ++it)
+	{
+		::std::cout << "[Key] " << it->first
+		<< " [value] " << it->second
+		<< ::std::endl;
+	}
 }
 
 void analysis::printTree( const NodePtr& ptr) const
@@ -507,4 +528,259 @@ void analysis::printTree( const NodePtr& ptr) const
 	}
 }
 
+void analysis::EvalType( const NodePtr& ptr)
+{
+	if ( ptr->getNodeKind() == NodeKind::StmK)
+	{
+		if ( ptr->getKind() == StmtKind::ReadK)
+		{
+			tmp_dType = ExpType::Integer;
+			EvalType(ptr->getChildren().at(0));
+		} else if ( ptr->getKind() == StmtKind::AssignK)
+		{
+			EvalType(ptr->getChildren().at(0));
+			auto tmp_data = ptr->getData();
+			auto tmp_str = ::boost::apply_visitor( get_visitor(), tmp_data);
+			auto it = symTab.find(tmp_str);
+			if ( it == symTab.end())
+			{
+				symTab[tmp_str] = tmp_dType;
+			} else 
+			{
+				if ( tmp_dType > symTab[tmp_str])
+				{
+					symTab[tmp_str] = tmp_dType;
+				} else 
+				{
+					tmp_dType = symTab[tmp_str];
+				}
+			}
+		} else if ( ptr->getKind() == StmtKind::RepeatK)
+		{
+			EvalType(ptr->getChildren().at(0));
+			EvalType(ptr->getChildren().at(1));
+		} else if ( ptr->getKind() == StmtKind::IfK)
+		{
+			EvalType(ptr->getChildren().at(0));
+			EvalType(ptr->getChildren().at(1));
+			if ( ptr->getChildSize() == 3)
+			{
+				EvalType(ptr->getChildren().at(2));
+			}
+		}
+	} else if ( ptr->getNodeKind() == NodeKind::ExpK)
+	{
+		if ( ptr->getKind() == ExpKind::ConstK)
+		{
+			tmp_dType = ExpType::Integer;
+		} else if ( ptr->getKind() == ExpKind::IdK)
+		{
+			auto tmp_data = ptr->getData();
+			auto tmp_str = ::boost::apply_visitor( get_visitor(), tmp_data);
+			auto it = symTab.find(tmp_str);
+			if ( it == symTab.end())
+			{
+				symTab[tmp_str] = tmp_dType;
+			} else 
+			{
+				if ( tmp_dType > symTab[tmp_str])
+				{
+					symTab[tmp_str] = tmp_dType;
+				} else {
+					tmp_dType = symTab[tmp_str];
+				}
+			}
+		} else if ( ptr->getKind() == ExpKind::OpK)
+		{
+			auto tmp_data = ptr->getData();
+			auto tmp_str = ::boost::apply_visitor( get_visitor(), tmp_data);
+
+			if ( tmp_str == "<" || tmp_str == "=")
+			{
+				tmp_dType = ExpType::Boolean;
+			} else 
+			{
+				EvalType(ptr->getChildren().at(0));
+				EvalType(ptr->getChildren().at(1));
+			}
+		}
+	}
+}
+
+void analysis::buildSymTab( const NodePtr& ptr)
+{
+	auto tmp_ptr = ptr;
+	while( tmp_ptr != nullptr)
+	{
+		EvalType(tmp_ptr);
+		tmp_ptr = tmp_ptr->getSibling();
+	}
+}
+
+::std::string analysis::newtmpVal()
+{
+	::std::stringstream ss;
+
+	ss << tmp_name_counter++;
+
+	return "@" + ss.str();
+}
+
+::std::string analysis::newtmpLab()
+{
+	::std::stringstream ss;
+
+	ss << tmp_name_counter++;
+
+	return ".L" + ss.str();
+
+}
+
+void analysis::genMidCode( const NodePtr& ptr)
+{
+	if ( ptr == nullptr)
+	{
+		return;
+	}
+
+	if ( ptr->getNodeKind() == NodeKind::ExpK)
+	{
+		if ( ptr->getKind() != ExpKind::OpK)
+		{
+			::std::stringstream ss;
+			auto tmp_data = ptr->getData();
+
+			ptr->setStrVal( ::boost::apply_visitor( get_visitor(), tmp_data));
+		} else 
+		{
+			genMidCode( ptr->getChildren().at(0));
+			genMidCode( ptr->getChildren().at(1));
+
+			auto tmp_data = ptr->getData();
+			auto tmp_str = ::boost::apply_visitor(get_visitor(), tmp_data);
+			auto tmp_name = newtmpVal();
+
+			ptr->setStrVal(tmp_name);
+
+			midcodes.push_back(trival(tmp_name, 
+						tmp_str, 
+						ptr->getChildren().at(0)->getStrVal(), 
+						ptr->getChildren().at(1)->getStrVal()));
+		}
+	} else 
+	{
+		if ( ptr->getKind() == StmtKind::AssignK)
+		{
+			auto tmp_data = ptr->getData();
+			auto tmp_str = ::boost::apply_visitor(get_visitor(), tmp_data);
+
+			genMidCode(ptr->getChildren().at(0));
+			midcodes.push_back(trival(tmp_str, 
+						":=", 
+						ptr->getChildren().at(0)->getStrVal()));
+		} else if ( ptr->getKind() == StmtKind::WriteK)
+		{
+			genMidCode(ptr->getChildren().at(0));
+			midcodes.push_back(trival("write", 
+						ptr->getChildren().at(0)->getStrVal()));
+
+		} else if ( ptr->getKind() == StmtKind::ReadK)
+		{
+			genMidCode(ptr->getChildren().at(0));
+			midcodes.push_back(trival("read", 
+						ptr->getChildren().at(0)->getStrVal()));
+		} else if ( ptr->getKind() == StmtKind::IfK)
+		{
+			auto tmp_lab = newtmpLab();
+			genMidCode(ptr->getChildren().at(0));
+			midcodes.push_back(trival("jne", tmp_lab));
+			genMidCode(ptr->getChildren().at(1));
+			midcodes.push_back(trival("label", tmp_lab));
+
+			if ( ptr->getChildSize() == 3)
+			{
+				genMidCode(ptr->getChildren().at(2));
+			}
+		} else if ( ptr->getKind() == StmtKind::RepeatK)
+		{
+			auto tmp_lab = newtmpLab();
+			midcodes.push_back(trival("lable", tmp_lab));
+			genMidCode(ptr->getChildren().at(0));
+			genMidCode(ptr->getChildren().at(1));
+			midcodes.push_back(trival("jne", tmp_lab));
+		}
+
+		genMidCode(ptr->getSibling());
+	}
+}
+
+void analysis::genMidCode()
+{
+	genMidCode(_root);
+	for( auto x : midcodes)
+	{
+		int size = x.getSize();
+		switch(size)
+		{
+			case 1:
+				::std::cout << "[Operand] " << x.getOperand();
+				::std::cout << " [Val1] " << x.getVal1();
+				::std::cout << ::std::endl;
+				break;
+			case 2:
+				::std::cout << "[Res] " << x.getRes();
+				::std::cout << " [Operand] " << x.getOperand();
+				::std::cout << " [Val1] " << x.getVal1();
+				::std::cout << ::std::endl;
+				break;
+			case 3:
+				::std::cout << "[Res] " << x.getRes();
+				::std::cout << " [Operand] " << x.getOperand();
+				::std::cout << " [Val1] " << x.getVal1();
+				::std::cout << " [Val2] " << x.getVal2();
+				::std::cout << ::std::endl;
+				break;
+		}
+	}
+	genFlag = true;
+}
+
+void analysis::exportMidCode( const ::std::string path)
+{
+	if ( !genFlag)
+	{
+		::std::cerr << "[ERROR] Not genMidCode" << ::std::endl;
+		return;
+	}
+	::std::ofstream outf(path);
+
+	for( auto x : midcodes)
+	{
+		int size = x.getSize();
+		switch(size)
+		{
+			case 1:
+				outf << "[Operand] ";
+				outf << x.getOperand();
+				outf << " [Val1] " ;
+				outf << x.getVal1();
+				outf << ::std::endl;
+				break;
+			case 2:
+				outf << "[Res] " << x.getRes();
+				outf << " [Operand] " << x.getOperand();
+				outf << " [Val1] " << x.getVal1();
+				outf << ::std::endl;
+				break;
+			case 3:
+				outf << "[Res] " << x.getRes();
+				outf << " [Operand] " << x.getOperand();
+				outf << " [Val1] " << x.getVal1();
+				outf << " [Val2] " << x.getVal2();
+				outf << ::std::endl;
+				break;
+		}
+	}
+
+}
 }
