@@ -1,0 +1,8 @@
+x := 1 + 1;
+write x;
+x := x + 1;
+write x;
+x := x + x;
+write x;
+x := x * -1;
+write x

@@ -11,6 +11,7 @@ set( SOURCE_DIR
 	./token.cc
 	./scan.cc
 	./analysis.cc
-	./syntax_treenode.cc)
+	./syntax_treenode.cc
+	./generator.cc)
 
 add_executable(${PROJECT_NAME} ${SOURCE_DIR})

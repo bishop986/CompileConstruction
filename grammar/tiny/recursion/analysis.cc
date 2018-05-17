@@ -118,15 +118,20 @@ NodePtr analysis::stmt_sequence()
 	cur_ptr = ret;
 	while(1)
 	{
-		if ( tmp->getVal() == "" || tmp->getType() == TYPE::RESERVED)
+		if ( tmp->getVal() == "" 
+				|| tmp->getVal() == "end" 
+				|| tmp->getVal() == "else"
+				|| tmp->getVal() == "until")
 		{
 			break;
 		}
 
 		if (tmp->getVal() != ";")
 		{
-			::std::cout << "[ERROR] Expected Symbol: \";\" while get "
-				<< tmp->getVal() << ::std::endl;
+			::std::cout << "[ERROR] Expected Symbol: \";\" while get \""
+				<< tmp->getVal()
+				<< "\""
+			   	<< ::std::endl;
 			::std::exit(1);
 		}
 		NodePtr tmp_ptr;
@@ -454,6 +459,28 @@ NodePtr analysis::factor()
 #endif
 
 	NodePtr ret;
+	if ( tmp->getVal() == "+")
+	{
+		match("+");
+		int tmp_num = number();
+		ret = ::std::make_shared<TreeNode>(tmp_num);
+
+		ret->setNodeKind(NodeKind::ExpK);
+		ret->setKind(ExpKind::ConstK);
+		ret->setType(ExpType::Integer);
+		return ret;
+	} else if ( tmp->getVal() == "-")
+	{
+		match("-");
+		int tmp_num = number();
+		tmp_num *= -1;
+		ret = ::std::make_shared<TreeNode>(tmp_num);
+
+		ret->setNodeKind(NodeKind::ExpK);
+		ret->setKind(ExpKind::ConstK);
+		ret->setType(ExpType::Integer);
+		return ret;
+	}
 
 	if ( tmp->getVal() == "(")
 	{
@@ -694,19 +721,23 @@ void analysis::genMidCode( const NodePtr& ptr)
 		} else if ( ptr->getKind() == StmtKind::IfK)
 		{
 			auto tmp_lab = newtmpLab();
+			auto tmp_lab2 = newtmpLab();
 			genMidCode(ptr->getChildren().at(0));
+			midcodes.push_back(trival("cmp", midcodes.at(midcodes.size()-1).getRes()));
 			midcodes.push_back(trival("jne", tmp_lab));
 			genMidCode(ptr->getChildren().at(1));
+			midcodes.push_back(trival("jmp",tmp_lab2));
 			midcodes.push_back(trival("label", tmp_lab));
 
 			if ( ptr->getChildSize() == 3)
 			{
 				genMidCode(ptr->getChildren().at(2));
 			}
+			midcodes.push_back(trival("label", tmp_lab2));
 		} else if ( ptr->getKind() == StmtKind::RepeatK)
 		{
 			auto tmp_lab = newtmpLab();
-			midcodes.push_back(trival("lable", tmp_lab));
+			midcodes.push_back(trival("label", tmp_lab));
 			genMidCode(ptr->getChildren().at(0));
 			genMidCode(ptr->getChildren().at(1));
 			midcodes.push_back(trival("jne", tmp_lab));

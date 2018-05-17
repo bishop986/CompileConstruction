@@ -2,6 +2,7 @@
 #include "include/global.h"
 #include "include/scan.h"
 #include "include/analysis.h"
+#include "include/generator.h"
 
 int main( int argc, char** argv)
 {
@@ -22,7 +23,7 @@ int main( int argc, char** argv)
 	dh::scanner tokens;
 	tokens.scan( fp);
 
-	//tokens.debug();
+	tokens.debug();
 	if ( !tokens.isRight())
 	{
 		return 1;
@@ -32,6 +33,9 @@ int main( int argc, char** argv)
 	an.buildSymTab();
 
 	an.genMidCode();
+
+	dh::generator gen(an);
+	gen.genAsmCode("../../out.asm","../modle");
 
 	return 0;
 }

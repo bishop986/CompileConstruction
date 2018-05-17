@@ -2,7 +2,6 @@
   in TINY language -
   computes factorial
 }
-y := 1 < 3;
 read x; { input an integer }
 if 0 < x then { don't compute if x <= 0 }
     fact := 1;
@@ -11,5 +10,4 @@ if 0 < x then { don't compute if x <= 0 }
         x := x - 1
     until x = 0;
     write fact { output factorial of x}
-end;
-x := 1 < 3
+end

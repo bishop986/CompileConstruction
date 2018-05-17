@@ -12,5 +12,7 @@
 
 - /grammar 包含文法分析内容
 	- /arithmetic/recursion 是一个简单算式的递归下降语法分析练习
-	- /tiny/recursion 是tiny语言递归下降语法分析器，词法分析器原型来自/word/mine/0.2
+	- /tiny/recursion 是一个tiny语言简单编译器，目标语言为nasm汇编
+
+- /Assemble 是一个tiny语言汇编生成模板
 

@@ -9,12 +9,11 @@ class generator{
 	public:
 		generator( analysis ans)
 		{
-			this->midcodes.resize(ans.midcodes.size());
 			this->midcodes.assign(ans.midcodes.begin(), ans.midcodes.end());
 			this->symTab = ::std::map< ::std::string, int>(ans.symTab);
 		}
 
-		void genAsmCode( const ::std::string& path);
+		void genAsmCode( const ::std::string& path, const ::std::string& modle);
 	private:
 		::std::vector<trival> midcodes;
 		::std::map< ::std::string, int> symTab;
