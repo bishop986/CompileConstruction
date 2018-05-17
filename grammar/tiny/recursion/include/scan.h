@@ -12,12 +12,13 @@ namespace dh{
 class token{
 	public:
 
-		token( ::std::string val, TYPE type);
+		token( ::std::string val, TYPE type, int line);
 		TYPE getType() const;
 		::std::string getVal() const;
+		int getLineno() const;
 		token& operator=(const token& eq);
 	private:
-
+		int lineno;
 		::std::string _val;
 		TYPE _type;
 };

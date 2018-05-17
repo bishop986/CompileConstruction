@@ -51,11 +51,11 @@ token scanner::getToken()
 {
 	if ( scanflag == false || _tokens.end() == _it)
 	{
-		return token( "", TYPE::NONE);
+		return token( "", TYPE::NONE, 0);
 	}
 
 	//::std::cout << "[SS] " << _it->getVal() << std::endl;
-	token tmp(_it->getVal(),_it->getType());
+	token tmp(_it->getVal(),_it->getType(), _it->getLineno());
 	++_it;
 	//::std::cout << "[DEBUG] " << tmp.getVal() << std::endl;
 
@@ -140,7 +140,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::DONE;
 					assign = cur;
 
-					_tokens.push_back( dh::token( tmp, TYPE::NUM));
+					_tokens.push_back( dh::token( tmp, TYPE::NUM,line));
 					tmp.clear();
 					continue;
 				}
@@ -160,7 +160,7 @@ bool scanner::scan(::std::FILE *fp)
 					state = STATE::START;	
 					tmp += cur;
 					
-					_tokens.push_back( dh::token( tmp, TYPE::ASSIGN));
+					_tokens.push_back( dh::token( tmp, TYPE::ASSIGN, line));
 					tmp.clear();
 				} else 
 				{
@@ -186,10 +186,10 @@ bool scanner::scan(::std::FILE *fp)
 							|| tmp == "else" || tmp == "write" || tmp == "repeat"
 							|| tmp == "until" || tmp == "end")
 					{
-						_tokens.push_back( dh::token( tmp, TYPE::RESERVED));
+						_tokens.push_back( dh::token( tmp, TYPE::RESERVED, line));
 					} else 
 					{
-						_tokens.push_back( dh::token( tmp, TYPE::ID));
+						_tokens.push_back( dh::token( tmp, TYPE::ID, line));
 					}
 
 					tmp.clear();
@@ -209,7 +209,7 @@ bool scanner::scan(::std::FILE *fp)
 					::std::string str = "";
 					str += assign;
 
-					_tokens.push_back( dh::token( str, TYPE::ASSIGN));
+					_tokens.push_back( dh::token( str, TYPE::ASSIGN, line));
 				} else 
 				{
 					state = STATE::START;

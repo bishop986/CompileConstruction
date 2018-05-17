@@ -10,7 +10,7 @@ namespace dh
 analysis::analysis(scanner tokens)
 {
 	this->_tokens = tokens;
-	this->tmp = ::std::make_shared<token>("", TYPE::NONE);
+	this->tmp = ::std::make_shared<token>("", TYPE::NONE, 0);
 	this->tmp_name_counter = 0;
 	initFlag = false;
 	genFlag = false;
@@ -41,7 +41,9 @@ void analysis::match( ::std::string c)
 	{
 		_tokens.ungetToken();
 		*tmp = _tokens.getToken();
-		::std::cerr << "[ERROR] Syntax Error near " << tmp->getVal() << ::std::endl;
+		::std::cerr << "[ERROR] Syntax Error near \"" << tmp->getVal() 
+			<< "\" in line " << tmp->getLineno()
+			<< ::std::endl;
 		::std::exit(1);
 	}
 }
@@ -65,7 +67,9 @@ int analysis::number()
 			return num_tmp;
 		} else
 		{
-			::std::cerr << "[ERROR] Syntax Error near " << tmp->getVal() << ::std::endl;
+			::std::cerr << "[ERROR] Syntax Error near \"" << tmp->getVal() 
+				<< "\" in line " << tmp->getLineno()
+				<< ::std::endl;
 			::std::exit(1);
 		}
 	} catch ( ::std::exception& e)
@@ -89,7 +93,9 @@ int analysis::number()
 		return ret;
 	} else 
 	{
-		::std::cerr << "[ERROR] Syntax Error near" << tmp->getVal() << ::std::endl;
+		::std::cerr << "[ERROR] Syntax Error near \"" << tmp->getVal() 
+			<< "\" in line " << tmp->getLineno()
+			<< ::std::endl;
 		::std::exit(1);
 	}
 }
@@ -131,6 +137,7 @@ NodePtr analysis::stmt_sequence()
 			::std::cout << "[ERROR] Expected Symbol: \";\" while get \""
 				<< tmp->getVal()
 				<< "\""
+				<< "in line " << tmp->getLineno()
 			   	<< ::std::endl;
 			::std::exit(1);
 		}
@@ -176,7 +183,11 @@ NodePtr analysis::statement()
 		
 	} else 
 	{
-		::std::cerr << "[ERROR] Syntax error near " << tmp->getVal() << ::std::endl;
+		::std::cerr << "[ERROR] Syntax error near \"" << tmp->getVal() 
+			<< "\""
+			<< " in line "
+			<< tmp->getLineno()
+			<< ::std::endl;
 		::std::exit(1);
 	}
 
@@ -531,12 +542,14 @@ void analysis::buildSymTab()
 
 	buildSymTab(_root);
 
+#ifdef _DEBUG_
 	for ( auto it = symTab.begin(); it != symTab.end(); ++it)
 	{
 		::std::cout << "[Key] " << it->first
 		<< " [value] " << it->second
 		<< ::std::endl;
 	}
+#endif
 }
 
 void analysis::printTree( const NodePtr& ptr) const
@@ -750,6 +763,7 @@ void analysis::genMidCode( const NodePtr& ptr)
 void analysis::genMidCode()
 {
 	genMidCode(_root);
+#ifdef _DEBUG_
 	for( auto x : midcodes)
 	{
 		int size = x.getSize();
@@ -775,6 +789,7 @@ void analysis::genMidCode()
 				break;
 		}
 	}
+#endif
 	genFlag = true;
 }
 
