@@ -1,86 +1,86 @@
 Thread1
-AP_Position_Input
-in
-event data
-Position_GPS
-Nav_Types
-event data
-Position_GPS
-Nav_Types
-flow1
-signal
-result1
-dispatch_protocol
-50
-Thread1
+  AP_Position_Input
+    in
+    event data
+      Position_GPS
+        Nav_Types
+    event data
+      Position_GPS
+        Nav_Types
+  flow1
+    signal
+    result1
+  dispatch_protocol
+    50
+  Thread1
 Thread_2
-AP_Position_Input
-in
-data
-Position_GPS
-Nav_Types1
-Nav_Types2
-data
-Position_GPS
-Nav_Types1
-Nav_Types2
-flow1
-signal
-result1
-result2
-50
-none
-Thread_2
+  AP_Position_Input
+    in
+    data
+      Position_GPS
+        Nav_Types1
+        Nav_Types2
+    data
+      Position_GPS
+        Nav_Types1
+        Nav_Types2
+  flow1
+    signal
+    result1
+      result2
+      50
+  none
+  Thread_2
 Thread3d
-AP_Position_Input
-out
-data
-Position_GPS
-Nav_Types1
-Nav_Types2
-result1
-result2
-50
-flow1
-signal
-result1
-result2
-50
-size
-50
-Thread3d
+  AP_Position_Input
+    out
+    data
+      Position_GPS
+        Nav_Types1
+        Nav_Types2
+    result1
+      result2
+      50
+  flow1
+    signal
+    result1
+      result2
+      50
+  size
+    50
+  Thread3d
 Thread4
-AP_Position_Input
-in out
-Position_GPS
-Nav_Types1
-Nav_Types2
-result1
-result2
-50
-flow1
-signal
-result1
-result2
-50
-size
--50
-Thread4
+  AP_Position_Input
+    in out
+    Position_GPS
+      Nav_Types1
+      Nav_Types2
+    result1
+      result2
+      50
+  flow1
+    signal
+    result1
+      result2
+      50
+  size
+    -50
+  Thread4
 Thread5
-AP_Position_Input
-in out
-event port
-event port
-flow1
-signal
-result1
-result2
-50
-size
-50
-Thread5
+  AP_Position_Input
+    in out
+    event port
+    event port
+  flow1
+    signal
+    result1
+      result2
+      50
+  size
+    50
+  Thread5
 Thread6
-none
-none
-none
-Thread6
+  none
+  none
+  none
+  Thread6

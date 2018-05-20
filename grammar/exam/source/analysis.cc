@@ -13,6 +13,8 @@ analysis::analysis(scanner tokens)
 	this->tmp = ::std::make_shared<token>("", TYPE::NONES);
 	initFlag = false;
 
+	this->tabcounter = 0;
+
 #ifdef _DEBUG_
 	assert(tokens.isScanned());
 #endif
@@ -529,9 +531,14 @@ void analysis::printTree()
 	printTree(this->_root);
 }
 
-void analysis::printTree( const NodePtr& ptr) const
+void analysis::printTree( const NodePtr& ptr)
 {
 	::std::ofstream outf("../SyntaxOut.txt", std::ios::app);
+
+	for ( int i = 0; i < tabcounter; ++i)
+	{
+		outf << "  ";
+	}
 
 	::boost::variant< ::std::string, int> tmp = ptr->getData();
 
@@ -541,7 +548,9 @@ void analysis::printTree( const NodePtr& ptr) const
 
 	for (auto i : ptr->getChildren())
 	{
+		tabcounter++;
 		printTree(i);
+		--tabcounter;
 	}
 
 	if ( ptr->getSibling() != nullptr)

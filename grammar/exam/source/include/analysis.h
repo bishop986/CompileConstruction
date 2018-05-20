@@ -34,7 +34,7 @@ class analysis{
 		NodePtr getRoot();
 	private:
 
-		void printTree( const NodePtr& ptr) const;
+		void printTree( const NodePtr& ptr);
 		void init();
 		bool initFlag;
 
@@ -46,6 +46,8 @@ class analysis{
 		scanner _tokens;
 		::std::shared_ptr< token > tmp;
 		NodePtr _root;
+
+		int tabcounter;
 
 		// recursion analysis
 		NodePtr ThreadSpec();
